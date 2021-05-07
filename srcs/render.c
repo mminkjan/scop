@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   render.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 17:12:05 by mminkjan      ########   odam.nl         */
+/*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
+/*   Updated: 2021/05/07 17:11:48 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-void	scop_return_error(t_cop *cop, const char *message)
+void	render(t_cop *scop)
 {
-	ft_putstr(message);
-	exit (0);
-}
-
-int		main(void)
-{
-	t_cop scop;
-
-	SDL_init(&scop);
-	render(&scop);
-	return (0);
+	SDL_Event e;
+	bool quit = false;
+	while (!quit)
+	{
+    	while (SDL_PollEvent(&e))
+		{
+        	if (e.type == SDL_QUIT)
+            	quit = true;
+        	if (e.type == SDL_KEYDOWN)
+            	quit = true;
+        	if (e.type == SDL_MOUSEBUTTONDOWN)
+          		quit = true;
+        }
+		SDL_UpdateWindowSurface(scop->window);
+	}
+	SDL_DestroyWindow(scop->window);
 }

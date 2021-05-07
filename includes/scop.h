@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 16:44:36 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/07 17:12:53 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ typedef struct s_cop {
 }				t_cop;
 
 int 	main(void);
+void	SDL_init(t_cop *scop);
+void	render(t_cop *scop);
+void	scop_return_error(t_cop *cop, const char *message);
 
 #endif

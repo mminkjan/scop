@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/05/07 16:58:38 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/05/07 17:13:25 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SDL_FLAGS = `sdl2-config --cflags --libs`
 LIBS = -L $(LIBFT) -lft -lSDL2_mixer
 
 SRCS_DIR = srcs/
-SRCS_FILES = main
+SRCS_FILES = main render SDL_init
 
 C_FILES = $(SCRS_FILES:%=%.c)
 
