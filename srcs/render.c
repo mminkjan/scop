@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 17:11:48 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/07 19:30:07 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	render(t_cop *scop)
         	if (e.type == SDL_MOUSEBUTTONDOWN)
           		quit = true;
         }
-		SDL_UpdateWindowSurface(scop->window);
+		glViewport(0, 0, WIDTH, HEIGHT);
+   		glClearColor(1.f, 0.f, 1.f, 0.f);
+    	glClear(GL_COLOR_BUFFER_BIT);
+    	SDL_GL_SwapWindow(scop->window);
 	}
-	SDL_DestroyWindow(scop->window);
 }

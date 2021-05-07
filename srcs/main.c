@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 17:12:05 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/07 19:55:06 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		main(void)
 {
 	t_cop scop;
 
-	SDL_init(&scop);
+	SDL_GL_init(&scop);
 	render(&scop);
 	return (0);
 }

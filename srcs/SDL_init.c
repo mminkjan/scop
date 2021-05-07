@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_sdl.c                                         :+:    :+:            */
+/*   SDL_init.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:08:44 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 17:09:37 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/07 19:28:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-void	SDL_init(t_cop *scop)	
+
+void	SDL_GL_init(t_cop *scop)	
 {
-	if(SDL_Init(SDL_INIT_VIDEO) != 0)
-		scop_return_error(scop, SDL_GetError());
+	Uint8 bpp;
+
+	SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 5 );
+	SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 5 );
+    SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 5 );
+    SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 	scop->window = SDL_CreateWindow(WINDOW_NAME, \
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
 	if (scop->window == NULL)
 		scop_return_error(scop, SDL_GetError());
-	scop->surface = SDL_GetWindowSurface(scop->window);
-	if (scop->surface == NULL)
-		scop_return_error(scop, SDL_GetError());
+	SDL_GL_CreateContext(scop->window);
 }
