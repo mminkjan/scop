@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/05/07 17:13:25 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/05/07 17:16:20 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,8 @@ fclean: clean
 re: fclean all
 
 add: fclean
-	git add $(LIBFT) $(HEADERS) $(ADD_FILES) $(SDL) \
-	$(C_FILES) git status
+	@git add $(LIBFT) $(HEADERS) $(ADD_FILES) $(SDL)
+	$(C_FILES) @git status
 
 push:
 ifdef MSG
