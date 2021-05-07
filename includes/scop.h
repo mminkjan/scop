@@ -35,7 +35,8 @@ typedef struct s_cop {
 	SDL_Window	*window;
 	SDL_Surface *surface;
 	SDL_Event	*event;
-	
+	GLuint 		*vertex_arrayID;
+	GLuint 		vertex_buffer;
 	bool		running;
 }				t_cop;
 
