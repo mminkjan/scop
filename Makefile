@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/05/08 00:47:40 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/05/13 18:21:55 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ O_FILES = $(SRCS_FILES:%=$(SRCS_DIR).objects/%.o)
 
 HEADERS = includes/scop.h
 
-ADD_FILES = Makefile 
+ADD_FILES = Makefile resources
 
 all: $(NAME)
 

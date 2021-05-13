@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:08:44 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/07 19:28:28 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/13 15:01:21 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void	SDL_GL_init(t_cop *scop)
 		scop_return_error(scop, "Unable to initialize glew");
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
+	load_shaders(scop);
 }
