@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/13 15:01:29 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/15 15:14:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,18 @@ typedef struct	s_objs {
 }				t_objs;
 
 typedef struct	s_shaders {
-	char		*vshader;
-	char		*fshader;
+	const char	*vshader;
+	const char	*fshader;
 }				t_shaders;
 
 typedef struct s_cop {
 	SDL_Window	*window;
+	SDL_GLContext context;
 	SDL_Surface *surface;
 	SDL_Event	*event;
 	GLuint 		*vertex_arrayID;
 	GLuint 		vertex_buffer;
+	GLuint		program_id;
 	bool		running;
 	t_objs		obj[1];
 	t_shaders	shaders[1];
