@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/15 13:00:57 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/05/16 12:00:24 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	scop_return_error(t_cop *cop, const char *message)
 {
 	ft_putendl(message);
+	// if (message != NULL)
+	// 	free(message);
 	exit (0);
 }
 
