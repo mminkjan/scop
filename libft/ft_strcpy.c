@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strcpy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:24:26 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:24:27 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/17 18:06:51 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/21 16:50:54 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

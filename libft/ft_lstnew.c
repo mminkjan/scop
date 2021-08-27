@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:27:21 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:27:22 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/24 16:52:52 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/04/05 18:06:21 by jesmith       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	t_list *new;
+	t_list	*elem;
 
-	new = (t_list *)ft_memalloc(sizeof(t_list));
-	if (!new)
+	elem = (t_list*)malloc(sizeof(t_list));
+	if (!elem)
 		return (NULL);
 	if (content == NULL)
 	{
-		new->content = NULL;
-		new->content_size = 0;
+		content_size = 0;
+		elem->content = NULL;
+		elem->next = NULL;
 	}
 	else
 	{
-		new->content = ft_memalloc(content_size);
-		if (!new->content)
+		elem->content = (void*)malloc(content_size);
+		if (!elem->content)
 		{
-			free(new);
-			return (NULL);
+			free(elem->content);
+			return (0);
 		}
-		new->content = ft_memcpy((new->content), content, content_size);
-		new->content_size = content_size;
+		elem->content = ft_memcpy((elem->content), content, content_size);
+		elem->content_size = content_size;
 	}
-	new->next = NULL;
-	return (new);
+	elem->next = NULL;
+	return (elem);
 }

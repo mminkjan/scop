@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strclen.c                                       :+:    :+:            */
+/*   ft_free_strarr.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:24:50 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:24:51 by jesmith       ########   odam.nl         */
+/*   Created: 2020/01/07 16:22:41 by jesmith        #+#    #+#                */
+/*   Updated: 2020/01/07 16:24:45 by jesmith       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strclen(const char *str, char c)
+void	ft_free_strarr(char **str_array)
 {
-	size_t i;
+	size_t index;
 
-	i = 0;
-	while (str[i] != '\0' && str[i] != c)
-		i++;
-	return (i);
+	index = 0;
+	while (str_array[index])
+	{
+		ft_bzero(str_array[index], 1);
+		free(str_array[index]);
+		index++;
+	}
+	free(str_array);
 }

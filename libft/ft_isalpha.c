@@ -3,14 +3,16 @@
 /*                                                        ::::::::            */
 /*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <marvin@codam.nl>                    +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/31 11:30:21 by jesmith       #+#    #+#                 */
-/*   Updated: 2019/02/04 19:18:50 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/22 16:03:48 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/04 22:40:08 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int c)
+int		ft_isalpha(int c)
 {
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	return (0);
 }

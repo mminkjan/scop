@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memmove.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:26:48 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:26:48 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/21 12:31:35 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/07 14:44:57 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t		i;
-	char		*dest;
-	const char	*source;
+	unsigned char		*dest;
+	unsigned const char	*source;
+	size_t				i;
 
-	dest = dst;
-	source = src;
 	i = 0;
-	if (source < dest)
+	source = src;
+	dest = dst;
+	if (len > ((size_t)(dest) - (size_t)(source)))
 	{
-		i = len;
-		while (i > 0)
+		while (len > 0)
 		{
-			i--;
-			dest[i] = source[i];
+			dest[len - 1] = source[len - 1];
+			len--;
 		}
 	}
 	else
-	{
 		while (i < len)
 		{
 			dest[i] = source[i];
 			i++;
 		}
-	}
-	return ((void *)(dst));
+	return (dst);
 }

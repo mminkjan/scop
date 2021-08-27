@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_atoii.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/22 15:29:34 by mminkjan       #+#    #+#                */
-/*   Updated: 2019/04/05 18:15:04 by jesmith       ########   odam.nl         */
+/*   Created: 2021/08/27 17:46:28 by mminkjan      #+#    #+#                 */
+/*   Updated: 2021/08/27 20:54:59 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static const char		*ft_whitespace(const char *str)
 {
@@ -63,13 +64,15 @@ static	size_t			ft_exceptional(const char *str, const char sign)
 	return (42);
 }
 
-size_t					ft_atoi(const char *str)
+int					ft_atoii(const char *str, int *index)
 {
-	size_t	i;
-	size_t	n;
+    int  i;
+	int	n;
+    int  s;
 
-	i = 0;
 	n = 0;
+    i = *index;
+    s = i;
 	str = ft_whitespace(str);
 	if (str[i] == '+' || str[i] == '-')
 		i++;
@@ -82,7 +85,8 @@ size_t					ft_atoi(const char *str)
 			n = (n * 10);
 		i++;
 	}
-	if (str[0] == '-')
-		n = -(n);
+	if (str[s] == '-')
+		n *= -1;
+    *index = i;
 	return (n);
 }

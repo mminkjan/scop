@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_count_if.c                                      :+:    :+:            */
+/*   ft_wordcount.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/21 12:13:30 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:29:49 by jesmith       ########   odam.nl         */
+/*   Created: 2019/02/06 12:47:07 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/06 12:48:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_if(char **tab, int (*f)(char*))
+int	ft_wordcount(char const *s, char c)
 {
-	size_t i;
-	size_t j;
+	size_t			i;
+	int				count;
 
 	i = 0;
-	j = 0;
-	while (tab[i])
+	count = 0;
+	while (s[i] != '\0')
 	{
-		f(tab[i]);
-		if (f(tab[i]) == 1)
-			j++;
+		if (s[i] != c && s[i] != '\0')
+		{
+			count++;
+			while (s[i] != c && s[i] != '\0')
+				i++;
+		}
+		if (s[i] == '\0')
+			return (count);
 		i++;
 	}
-	return ((int)j);
+	return (count);
 }

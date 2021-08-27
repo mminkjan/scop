@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_atoi_base.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <marvin@codam.nl>                    +#+                     */
+/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/31 15:20:28 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:30:02 by jesmith       ########   odam.nl         */
+/*   Created: 2020/01/04 13:14:13 by jesmith        #+#    #+#                */
+/*   Updated: 2020/01/07 16:52:36 by jesmith       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

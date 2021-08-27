@@ -3,37 +3,36 @@
 /*                                                        ::::::::            */
 /*   ft_lstmap.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:27:30 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:27:30 by jesmith       ########   odam.nl         */
+/*   Created: 2019/02/03 21:25:57 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/07 14:11:54 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(f)(t_list *elem))
 {
-	t_list *new;
-	t_list *head;
-	t_list *last;
+	t_list	*new;
+	t_list	*head;
 
-	if (lst == NULL || f == NULL)
+	if (lst == NULL)
 		return (NULL);
-	head = f(lst);
-	if (!head)
-		return (NULL);
-	last = head;
-	while (lst->next != NULL)
+	new = f(lst);
+	head = new;
+	if (new != NULL)
 	{
-		lst = lst->next;
-		new = f(lst);
-		if (new == NULL)
+		while (lst->next != NULL)
 		{
-			ft_lstdel(&new, &ft_del);
-			return (NULL);
+			lst = lst->next;
+			new->next = f(lst);
+			if (new->next == NULL)
+				return (NULL);
+			new = new->next;
 		}
-		ft_lstaddback(&last, new);
 	}
+	else
+		return (NULL);
 	return (head);
 }

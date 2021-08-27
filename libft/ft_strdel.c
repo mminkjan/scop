@@ -3,17 +3,17 @@
 /*                                                        ::::::::            */
 /*   ft_strdel.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:24:18 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:24:19 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/16 14:19:33 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/24 16:27:51 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(const char *s)
+void	ft_strdel(char **as)
 {
-	if (*s == '\0')
-		ft_memdel((void **)(s));
+	free(*as);
+	*as = NULL;
 }

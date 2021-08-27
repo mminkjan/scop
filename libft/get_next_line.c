@@ -3,99 +3,108 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/05 14:56:39 by jesmith       #+#    #+#                 */
-/*   Updated: 2021/05/06 16:15:03 by mminkjan      ########   odam.nl         */
+/*   Created: 2019/02/28 10:06:07 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/12/23 19:00:50 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "get_next_line.h"
 
-int		ft_strsubsize(char *str)
+int		find_line(t_list *box, char **line)
 {
-	int i;
+	int		i;
+	char	*temp;
+	int		len;
 
 	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i] != '\n' && str[i] != '\0' && str[i] != ',' && str[i] != '\r')
-		i++;
-	return (i);
-}
-
-int		ft_readloop(int fd, char *buf, t_list *item, char **line)
-{
-	int		ret;
-	char	*temp;
-
-	while ((ret = read(fd, buf, BUFF_SIZE)))
+	temp = (char *)box->content;
+	len = ft_strlen(temp);
+	if (len == 0)
 	{
-		buf[ret] = '\0';
-		temp = ft_strjoin(item->content, buf);
-		free(item->content);
-		item->content = ft_strdup(temp);
-		free(temp);
-		if (ft_strchr(buf, '\n') || ft_strchr(buf, ',') || ft_strchr(buf, '\r'))
-			break ;
-	}
-	if (ret < BUFF_SIZE && ft_strlen(item->content) == 0)
+		*line = NULL;
 		return (0);
-	*line = ft_strsub(item->content, 0, ft_strsubsize(item->content));
-	temp = ft_strsub(item->content, ft_strlen(*line) + 1, \
-	ft_strlen(item->content) - ft_strlen(*line));
-	free(item->content);
-	item->content = ft_strdup(temp);
+	}
+	while (temp[i] != '\n' && i < len)
+		i++;
+	*line = ft_strsub(temp, 0, i);
+	if (line == NULL)
+		return (-1);
+	if (i < len)
+		box->content = ft_strsub(temp, i + 1, len);
+	else if (i == len)
+		box->content = ft_strnew(0);
+	if (box->content == NULL)
+		return (-1);
 	free(temp);
 	return (1);
 }
 
-t_list	*ft_content_sizecheck(int fd, t_list *start)
+char	*packing(t_list *box, char *buff)
 {
-	t_list	*temp;
-	t_list	*new;
+	char	*temp;
 
-	while (start != NULL)
-	{
-		if (start->content_size == (size_t)fd)
-			return (start);
-		temp = start;
-		start = start->next;
-	}
-	new = ft_lstnew("\0", 1);
-	if (new == NULL)
+	temp = box->content;
+	box->content = ft_strjoin(temp, buff);
+	if (box->content == NULL)
 		return (NULL);
-	new->content_size = (size_t)fd;
-	temp->next = new;
-	return (new);
+	free(temp);
+	return (box->content);
 }
 
-int		get_next_line2(const int fd, char **line)
+t_list	*basement(int fd)
 {
-	char			*buf;
-	static t_list	*start;
-	t_list			*item;
-	int				more;
+	static t_list	*lst = NULL;
+	t_list			*current;
+	size_t			i;
+	char			*str;
 
-	if (fd < 0 || line == NULL || BUFF_SIZE <= 0)
-		return (-1);
-	buf = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1));
-	if (buf == NULL)
-		return (-1);
-	if (read(fd, buf, 0) == -1)
-		return (-1);
-	if (!start)
+	i = 0;
+	current = lst;
+	str = NULL;
+	while (current != NULL && current->content_size != (size_t)fd)
+		current = current->next;
+	if (current == NULL)
 	{
-		item = ft_lstnew("\0", 1);
-		item->content_size = (size_t)fd;
-		start = item;
+		str = ft_strnew(0);
+		if (str == NULL)
+			return (NULL);
+		current = ft_lstnew(str, 1);
+		if (current == NULL)
+			return (NULL);
+		current->content_size = fd;
+		ft_lstadd(&lst, current);
+		free(str);
 	}
-	else
-		item = ft_content_sizecheck(fd, start);
-	more = ft_readloop(fd, buf, item, line);
-	free(buf);
-	if (more == -1 || more == 1)
-		return (more);
-	return (0);
+	return (current);
+}
+
+int		get_next_line(const int fd, char **line)
+{
+	int		ret;
+	t_list	*box;
+	char	buff[BUFF_SIZE + 1];
+
+	if (fd < 0 || line == NULL)
+		return (-1);
+	ret = read(fd, buff, 0);
+	if (ret < 0)
+		return (-1);
+	box = basement(fd);
+	if (box == NULL)
+		return (-1);
+	ret = 1;
+	while (ret > 0 && ft_strchr(box->content, '\n') == NULL)
+	{
+		ret = read(fd, buff, BUFF_SIZE);
+		if (ret == -1)
+			return (-1);
+		buff[ret] = '\0';
+		if (ret > 0)
+			box->content = packing(box, buff);
+		if (box->content == NULL)
+			return (-1);
+	}
+	return (find_line(box, line));
 }

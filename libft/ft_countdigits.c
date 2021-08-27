@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_strarray.c                                 :+:    :+:            */
+/*   ft_countdigits.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/17 10:16:35 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:29:27 by jesmith       ########   odam.nl         */
+/*   Created: 2019/02/06 12:51:58 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/07 14:33:57 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_free_strarray(char **alt_values)
+int		ft_countdigits(int n)
 {
-	size_t index;
+	unsigned int	i;
 
-	index = 0;
-	while (alt_values[index])
+	i = 0;
+	if (n < 0)
+		i++;
+	if (n == 0)
+		i++;
+	while (n != 0)
 	{
-		ft_bzero(alt_values[index], 1);
-		free(alt_values[index]);
-		index++;
+		n = (n / 10);
+		i++;
 	}
-	if (alt_values != NULL)
-		free(alt_values);
+	return (i);
 }

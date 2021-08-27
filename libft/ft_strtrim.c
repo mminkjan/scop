@@ -3,61 +3,29 @@
 /*                                                        ::::::::            */
 /*   ft_strtrim.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:21:50 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:21:51 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/17 13:18:33 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/31 17:24:25 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_trimlen(const char *s)
+char	*ft_strtrim(char const *s)
 {
-	size_t i;
-	size_t space;
-	size_t len;
+	char			*str;
+	unsigned int	i;
+	size_t			end;
 
-	len = ft_strlen(s);
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+	end = ft_strlen(s) - 1;
+	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i] != '\0')
 		i++;
-	space = i;
-	if (s[i] != '\0')
-	{
-		i = len - 1;
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		{
-			i--;
-			space++;
-		}
-	}
-	return (len - space);
-}
-
-char			*ft_strtrim(char const *s)
-{
-	char	*new;
-	size_t	j;
-	size_t	i;
-	size_t	l;
-
-	if (!s)
+	while ((s[end] == ' ' || s[end] == '\n' || s[end] == '\t') && end >= i)
+		end--;
+	str = ft_strsub(s, i, (end - i) + 1);
+	if (!(str))
 		return (NULL);
-	i = 0;
-	j = 0;
-	l = ft_trimlen(s);
-	new = ft_memalloc(sizeof(char) * l + 1);
-	if (!new)
-		return (NULL);
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	while (j < l)
-	{
-		new[j] = s[i];
-		j++;
-		i++;
-	}
-	new[j] = '\0';
-	return (new);
+	return (str);
 }

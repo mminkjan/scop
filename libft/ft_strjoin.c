@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:23:53 by jesmith       #+#    #+#                 */
-/*   Updated: 2021/05/13 15:18:00 by mminkjan      ########   odam.nl         */
+/*   Created: 2019/01/17 11:19:41 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/04/05 18:17:54 by jesmith       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
-	char	*new;
+	char	*str;
+	int		i;
+	int		si;
+	size_t	len;
 
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	new = (char *)ft_memalloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!new)
+	len = (ft_strlen(s1) + ft_strlen(s2));
+	str = ft_memalloc(sizeof(char) * (len + 1));
+	if (str == NULL)
 		return (NULL);
-	while (*s1 != '\0')
+	str[len] = '\0';
+	while (s1[i] != '\0')
 	{
-		new[i] = *s1;
+		str[i] = s1[i];
 		i++;
-		s1++;
 	}
-	while (*s2 != '\0')
+	si = 0;
+	while (s2[si] != '\0')
 	{
-		new[i] = *s2;
+		str[i] = s2[si];
 		i++;
-		s2++;
+		si++;
 	}
-	new[i] = '\0';
-	return (new);
+	return (str);
 }

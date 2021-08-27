@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_putendl.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <marvin@codam.nl>                    +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/28 14:18:54 by jesmith       #+#    #+#                 */
-/*   Updated: 2019/02/04 13:29:49 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/18 17:22:41 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/18 17:59:30 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

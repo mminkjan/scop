@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strsub.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:22:15 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:22:15 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/16 19:55:59 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/31 23:04:14 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*new;
-	size_t	i;
+	unsigned int	i;
+	char			*str;
 
 	i = 0;
-	if (s == NULL)
+	str = (char*)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
 		return (NULL);
-	new = (char *)ft_memalloc(len + 1);
-	if (!new)
-		return (NULL);
-	while (i < len && s[i])
+	str[len] = '\0';
+	while (i < len)
 	{
-		new[i] = s[start + i];
+		str[i] = s[start];
 		i++;
+		start++;
 	}
-	new[i] = '\0';
-	return (new);
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/15 15:14:28 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/08/27 21:39:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdint.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <time.h>
 
 # define WINDOW_NAME "Scop"
 # define WIDTH	640
@@ -67,6 +68,24 @@ typedef struct	s_shaders {
 	const char	*fshader;
 }				t_shaders;
 
+typedef struct	s_vec3 {
+	float		x;
+	float		y;
+	float		z;
+}				t_vec3;
+
+typedef struct	s_vec4 {
+	float		x;
+	float		y;
+	float		z;
+    float       w;
+}				t_vec4;
+
+typedef struct s_vertex_array {
+    struct s_vec3 *s_vec3;
+    int             length;
+}               t_vertex_array;
+
 typedef struct s_cop {
 	SDL_Window	*window;
 	SDL_GLContext context;
@@ -85,5 +104,7 @@ void	SDL_GL_init(t_cop *scop);
 void	render(t_cop *scop);
 void	scop_return_error(t_cop *cop, const char *message);
 GLuint 	load_shaders(t_cop *scop);
+void    load_objects(t_cop *scop);
+void    file_to_string(t_cop *scop, int fd, const char **file);
 
 #endif

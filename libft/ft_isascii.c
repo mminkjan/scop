@@ -3,17 +3,16 @@
 /*                                                        ::::::::            */
 /*   ft_isascii.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/19 15:57:08 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:29:01 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/22 20:26:11 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/04 22:42:30 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isascii(int c)
+int		ft_isascii(int c)
 {
-	if (c >= 0 && c < 128)
+	if (c >= 0 && c <= 127)
 		return (1);
-	else
-		return (0);
+	return (0);
 }

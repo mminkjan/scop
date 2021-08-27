@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/05/16 12:00:24 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/08/27 13:49:21 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		main(void)
 	t_cop scop;
 
 	SDL_GL_init(&scop);
+    load_shaders(&scop);
+    load_objects(&scop);
 	render(&scop);
 	return (0);
 }

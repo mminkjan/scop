@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/06 21:39:07 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:29:44 by jesmith       ########   odam.nl         */
+/*   Created: 2019/12/11 15:17:32 by jesmith        #+#    #+#                */
+/*   Updated: 2020/01/04 12:44:21 by jesmith       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,4 @@ void	ft_del(void *data, size_t size)
 		return ;
 	ft_bzero(data, size);
 	free(data);
-	data = NULL;
-	size = 0;
 }

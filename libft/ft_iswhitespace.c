@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_iswhitespace.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 10:16:37 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:28:16 by jesmith       ########   odam.nl         */
+/*   Created: 2019/02/06 12:03:56 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/02/06 12:47:19 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

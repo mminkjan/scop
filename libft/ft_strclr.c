@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strclr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/08/28 15:24:42 by jesmith       #+#    #+#                 */
-/*   Updated: 2020/08/28 15:24:43 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/16 16:01:32 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/17 16:41:09 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_strclr(char *s)
 	size_t i;
 
 	i = 0;
-	if (s == NULL)
-		return ;
 	while (s[i] != '\0')
 	{
 		s[i] = '\0';

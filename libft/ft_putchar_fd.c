@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_putchar_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <marvin@codam.nl>                    +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/21 19:30:42 by jesmith       #+#    #+#                 */
-/*   Updated: 2019/01/24 10:08:00 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/18 18:57:40 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/19 12:00:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

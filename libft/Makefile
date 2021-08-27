@@ -3,71 +3,48 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: jesmith <jesmith@studentodam.nl>           +#+                      #
+#    By: mminkjan <mminkjan@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/01/13 12:32:27 by jesmith        #+#    #+#                 #
-#    Updated: 2019/09/06 12:44:57 by jesmith       ########   odam.nl          #
+#    Created: 2019/01/12 11:46:52 by mminkjan      #+#    #+#                  #
+#    Updated: 2021/08/27 17:51:50 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -Wall -Werror -Wextra
-HEAD = libft.h
-SRCS = lstmap lstdelone lstiter lstadd lstnew islower \
-		lstdel strsplit wrdcount strndup strnstr \
-		strstr itoa putnbr_fd putendl_fd isupper putstr_fd \
-		putchar_fd strtrim strjoin strsub intlen strncmp \
-		strnequ strequ strmapi strmap striteri striter \
-		strclr strdel strnew memdel memalloc memset \
-		bzero memcpy memccpy memmove memchr memcmp \
-		strlen strdup strcpy strncpy strcmp strcat \
-		strncat strlcat strchr strrchr isalpha isdigit \
-		isalnum isascii isprint toupper tolower isspace \
-		atoi putchar putstr putendl putnbr isupper \
-		islower stralloc strrev lstaddback del strdel \
-		strsubsize count_if free_strarray \
-		foreach range sqrt recursive_factorial \
-		div_mod swap is_negative print_alphabet \
-		print_numbers strclen ull_length atoi_base \
-		itoa_base exit isnumber_base has_prefix isdigit_base \
-		iswhitespace rounder
 
-CFILES = $(SRCS:%=./ft_%.c) get_next_line.c
+FTS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
+	  ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c ft_strncat.c \
+	  ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c ft_strcmp.c \
+	  ft_atoi.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+	  ft_toupper.c ft_tolower.c ft_memcmp.c ft_strncmp.c ft_strlcat.c \
+	  ft_isdigit_base.c ft_atoii.c
+FTS2 = ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c \
+	   ft_striteri.c ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strsub.c \
+	   ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c \
+	   ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
+	   ft_putnbr_fd.c ft_strarradel.c ft_free_strarr.c
+FTS3 = ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c
+BONUS = ft_str_epu.c ft_iswhitespace.c ft_wordcount.c ft_countdigits.c ft_nametag.c \
+		ft_lstaddback.c ft_del.c ft_atoi_base.c ft_has_prefix.c
+ADDS = get_next_line.c
+FILES = $(FTS) $(FTS2) $(FTS3) $(BONUS) $(ADDS)
+BIN = $(FTS:.c=.o) $(FTS2:.c=.o) $(FTS3:.c=.o) $(BONUS:.c=.o) $(ADDS:.c=.o)
+FLAGS = -Wall  -Wextra -Werror
 
-SRCO = $(CFILES:%.c=%.o)
+all : $(NAME)
 
-NORM = norminette $(HEAD) $(CFILES) | grep -e "Warning" -e "Error" -B 1
+$(NAME) :
+	@ gcc $(FLAGS) -c -I includes $(FILES)
+	@ ar rc $(NAME) $(BIN)
+	@ ranlib $(NAME)
+	
+clean :
+	@ rm -f $(BIN)
+	@ rm -f *#
+	@ rm -f *~
 
-all: $(NAME)
+fclean : clean
+	@ rm -f $(NAME)
 
-norm:
-	@$(NORM)
+re : fclean all
 
-add:
-	@git add $(CFILES) $(HEAD) Makefile README.md
-	@git status
-
-$(NAME):
-	@gcc $(CFLAGS) -c $(CFILES)
-	@ar rc	$(NAME) $(SRCO) $(HEAD)
-	@ranlib	$(NAME)
-
-clean:
-	@/bin/rm -f $(SRCO) *~
-
-fclean:
-	@/bin/rm -f $(SRCO) libft.a
-
-re: fclean all
-
-push:
-ifdef MSG
-	@git commit -m "$(MSG)"
-	@git push
-	@make norm
-else
-	@echo "WARNING NO MESSAGE"
-endif
-
-print:
-	@echo "$(SRCO)"

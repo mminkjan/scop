@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_memdel.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jesmith <marvin@codam.nl>                    +#+                     */
+/*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/20 11:31:11 by jesmith       #+#    #+#                 */
-/*   Updated: 2019/02/04 13:28:08 by jesmith       ########   odam.nl         */
+/*   Created: 2019/01/16 12:06:59 by mminkjan       #+#    #+#                */
+/*   Updated: 2019/01/17 15:06:44 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
