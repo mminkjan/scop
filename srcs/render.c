@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 22:42:33 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/08 15:43:04 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void set_vertexes(t_cop *scop)
 	// glGenVertexArrays(1, &VAO);  
 	glGenBuffers(1, &scop->vertex_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, scop->vertex_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vt_buffer_data), vt_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(scop->vt_buffer_data), scop->vt_buffer_data, GL_STATIC_DRAW);
 }
 
 void	render(t_cop *scop)

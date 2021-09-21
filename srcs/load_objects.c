@@ -6,16 +6,13 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 22:20:36 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/08 17:04:12 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/scop.h"
 
-// void arrange_vertices(t_cop *scop, t_vec3 *vertices, t_vec4 *faces, )
-// {
-    
-// }
+
 
 t_vec4 get_obj_faces(t_cop *scop, const char *obj, int *index)
 {
@@ -24,17 +21,17 @@ t_vec4 get_obj_faces(t_cop *scop, const char *obj, int *index)
 
     i = *index;;
     i += 2;
-    face.x = (float)ft_atoii(obj, &i);
+    face.x = ft_atoii(obj, &i);
     i++;
-    face.y = (float)ft_atoii(obj, &i);
+    face.y = ft_atoii(obj, &i);
     i++;
-    face.z = (float)ft_atoii(obj, &i);
+    face.z = ft_atoii(obj, &i);
     i++;
     if (ft_isdigit(obj[i]) > 0)
         face.w = (float)ft_atoii(obj, &i);
     else
         face.w = -1;
-    printf("%f, %f, %f, %f\n", face.x, face.y, face.z, face.w);
+    printf("%d, %d, %d, %d\n", face.x, face.y, face.z, face.w);
     *index = i;
     return (face);
 }
@@ -107,10 +104,11 @@ void save_obj_vertices(t_cop *scop, const char *obj)
             bufferf[f] = get_obj_faces(scop, obj, &i);
             f++;
         }
-        // arrange_vertices(bufferv, bufferf, v, f);
         // set_ob
         i++;
     }
+    scop->vt_buffer_data = (GLfloat *)malloc(sizeof(GLfloat) * v);
+    arrange_vertices_triangle(scop, bufferv, bufferf, f);
 }
 
 void load_objects(t_cop *scop)
@@ -118,10 +116,10 @@ void load_objects(t_cop *scop)
     int fd;
     const char *obj_file;
 
-    fd = open("resources/models/42.obj", O_RDONLY);
+    fd = open("resources/models/teapot.obj", O_RDONLY);
     if (fd == -1)
         scop_return_error(scop, "unable to open object file\n");
     file_to_string(scop, fd, &obj_file);
     save_obj_vertices(scop, obj_file);
-    printf("%s\n", obj_file);
+    //scop->vt_buffer_data = vector3_to_float_array(scop, bufferv, scop->vt_buffer_data, v);
 }

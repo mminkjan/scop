@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/08/27 13:40:54 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/09/08 16:14:43 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SDL_FLAGS = `sdl2-config --cflags --libs`  -framework OpenGL -lGLEW -I GLEW_INCL
 LIBS = -L $(LIBFT) -lft -lSDL2_mixer $(GLEW_LIB)
 
 SRCS_DIR = srcs/
-SRCS_FILES = main render SDL_init load_shaders load_objects
+SRCS_FILES = main render SDL_init load_shaders load_objects arrange_obj_data
 
 C_FILES = $(SCRS_FILES:%=%.c)
 

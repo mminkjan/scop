@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 21:39:41 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/08 17:02:32 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct	s_vec3 {
 }				t_vec3;
 
 typedef struct	s_vec4 {
-	float		x;
-	float		y;
-	float		z;
-    float       w;
+	int         x;
+	int         y;
+	int         z;
+    int         w;
 }				t_vec4;
 
 typedef struct s_vertex_array {
@@ -94,6 +94,7 @@ typedef struct s_cop {
 	GLuint 		*vertex_arrayID;
 	GLuint 		vertex_buffer;
 	GLuint		program_id;
+    GLfloat*    vt_buffer_data;
 	bool		running;
 	t_objs		obj[1];
 	t_shaders	shaders[1];
@@ -106,5 +107,9 @@ void	scop_return_error(t_cop *cop, const char *message);
 GLuint 	load_shaders(t_cop *scop);
 void    load_objects(t_cop *scop);
 void    file_to_string(t_cop *scop, int fd, const char **file);
+GLfloat *vector3_to_float_array(t_cop *scop, t_vec3 *buffer,\
+        float *data, int length);
+void    arrange_vertices_triangle(t_cop *scop, t_vec3 *vertices,\
+        t_vec4 *faces, int fc_lenght);
 
 #endif
