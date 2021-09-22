@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/08 17:02:32 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/22 19:01:59 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 
 # define TRUE	1
 # define FALSE	0
+
+# define PI 3.14159265359
+
+typedef enum    e_primitives {
+    point,
+    line,
+    triangle,
+    square
+}               t_primitives;
+
 
 typedef struct	s_v {
 	float		x;
@@ -81,35 +91,48 @@ typedef struct	s_vec4 {
     int         w;
 }				t_vec4;
 
-typedef struct s_vertex_array {
-    struct s_vec3 *s_vec3;
+typedef struct      s_vertex_array {
+    struct s_vec3   *s_vec3;
     int             length;
-}               t_vertex_array;
+}                   t_vec3_array;
 
-typedef struct s_cop {
-	SDL_Window	*window;
-	SDL_GLContext context;
-	SDL_Surface *surface;
-	SDL_Event	*event;
-	GLuint 		*vertex_arrayID;
-	GLuint 		vertex_buffer;
-	GLuint		program_id;
-    GLfloat*    vt_buffer_data;
-	bool		running;
-	t_objs		obj[1];
-	t_shaders	shaders[1];
-}				t_cop;
+typedef struct      s_face {
+    struct s_vec4   v;
+    struct s_vec4   vt;
+    struct s_vec4   vn;
+}                   t_face;
+
+typedef struct      s_cop {
+	SDL_Window      *window;
+	SDL_GLContext   context;
+	SDL_Surface     *surface;
+	SDL_Event       *event;
+	GLuint          *vertex_arrayID;
+	GLuint          vertex_buffer;
+    GLuint          color_buffer;
+	GLuint          program_id;
+    GLfloat*        vt3_buffer_data;
+	bool            running;
+	t_objs          obj[1];
+	t_shaders       shaders[1];
+}				    t_cop;
 
 int 	main(void);
 void	SDL_GL_init(t_cop *scop);
 void	render(t_cop *scop);
 void	scop_return_error(t_cop *cop, const char *message);
 GLuint 	load_shaders(t_cop *scop);
-void    load_objects(t_cop *scop);
+void    obj_reader(t_cop *scop, char *file);
 void    file_to_string(t_cop *scop, int fd, const char **file);
 GLfloat *vector3_to_float_array(t_cop *scop, t_vec3 *buffer,\
         float *data, int length);
-void    arrange_vertices_triangle(t_cop *scop, t_vec3 *vertices,\
+void    obj_arrange_vertices(t_cop *scop, t_vec3 *vertices,\
         t_vec4 *faces, int fc_lenght);
+void    load_bmp(t_cop *scop, const char *imagepath);
+
+void	rotation_x(int degree, t_vec3 *position);
+void	rotation_y(int degree, t_vec3 *position);
+void	rotation_z(int degree, t_vec3 *position);
+void	iso_projection(t_vec3 *position);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/08 00:39:47 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 15:49:04 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/21 16:22:07 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ GLuint load_shaders(t_cop *scop)
     const char *vshader;
     const char *fshader;
     
-    fd = open("resources/shaders/basic.vertexshader", O_RDONLY);
+    fd = open("resources/shaders/basic.1.vertexshader", O_RDONLY);
     if (fd == -1)
         scop_return_error(scop, "unable to open vertex shader\n");
     file_to_string(scop, fd, &vshader);
     compile_shader(scop, &vshader, GL_VERTEX_SHADER);
     free((void*)vshader);
     close(fd);
-    fd = open("resources/shaders/basic.fragmentshader", O_RDONLY);
+    fd = open("resources/shaders/basic.1.fragmentshader", O_RDONLY);
     if (fd == -1)
         scop_return_error(scop, "unable to open fragment shader\n");
     file_to_string(scop, fd, &fshader);

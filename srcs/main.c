@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 13:49:21 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/22 18:12:53 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int		main(void)
 {
 	t_cop scop;
 
+      printf("loaded objects\n");
 	SDL_GL_init(&scop);
     load_shaders(&scop);
-    load_objects(&scop);
+    obj_reader(&scop, "resources/models/cube.obj");
 	render(&scop);
 	return (0);
 }
