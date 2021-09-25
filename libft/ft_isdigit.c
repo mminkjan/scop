@@ -5,14 +5,14 @@
 /*                                                     +:+                    */
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/22 18:08:42 by mminkjan       #+#    #+#                */
-/*   Updated: 2019/12/23 16:14:47 by mminkjan      ########   odam.nl         */
+/*   Created: 2019/01/22 18:08:42 by mminkjan      #+#    #+#                 */
+/*   Updated: 2021/09/25 21:12:45 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
-	if ((c >= '0' && c <= '9') || c == '-')
+	if ((c >= '0' && c <= '9') || (c == '-' || c == '+'))
 		return (1);
 	return (0);
 }

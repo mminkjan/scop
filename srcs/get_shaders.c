@@ -6,31 +6,30 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/08 00:39:47 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/21 16:22:07 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/25 15:32:48 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/scop.h"
+#include "../includes/scop.h"
 
-
-void get_shader_info(t_cop *scop, GLuint shader, GLuint type)
+void	get_shader_info(t_cop *scop, GLuint shader, GLuint type)
 {
-    if( glIsShader( shader ) )
-    {
-        char    *info;
-        int     info_length;
-        int     max_length;
-        
+	if (glIsShader(shader))
+	{
+    	char	*info;
+    	int		info_length;
+    	int		max_length;
+
         info_length = 0;
         max_length = 0;
         glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &max_length );
         info = (char*)malloc(sizeof(char) * max_length);
         glGetShaderInfoLog( shader, max_length, &info_length, info);
-        if( info_length > 0 )
+        if (info_length > 0)
             ft_putendl(info);
         free(info);
     }
-    if (type ==  GL_VERTEX_SHADER)
+    if (type == GL_VERTEX_SHADER)
         scop_return_error(scop, "vertex shader is not recognized");
     scop_return_error(scop, "fragment shader is not recognized");
 }
@@ -82,7 +81,7 @@ void    file_to_string(t_cop *scop, int fd, const char **file)
     free(buffer);
 }
 
-GLuint load_shaders(t_cop *scop)
+GLuint get_shaders(t_cop *scop)
 {
     int fd;
     const char *vshader;

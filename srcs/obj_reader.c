@@ -6,158 +6,86 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/22 19:05:12 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/25 22:35:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/scop.h"
 
-
-void    get_vertices(t_cop *scop, const char *obj, int *index)
+static			t_vec2 get_vec2(char *str)
 {
-    static int i = 0;
-    int         
-
-    index += 2;
-    while (obj[])
+	int			i;
+	t_vec2		vector2;
+	char		**values;
     
-
-
-
+	i = 1;
+	values = ft_strsplit(str, ' ');
+    vector2.x = ft_atof(values[i]);
+	vector2.y = ft_atof(values[i + 1]);
+    return (vector2);
 }
 
-void obj_arrange(t_cop *scop, const char *obj, int *index)
+static			t_vec3 get_vec3(char *str)
 {
-    static int  f_i = 0;
-    int         i;
-    int         space;
-
-
-    i = *index;
-    
-    while (obj[i] != 'f' || obj[i] != '\n')
-    {
-        if (obj[i] == ' ')
-            space++;
-    }
-
-    get_vertices(scop, obj, index);
-}
-
-t_vec4 get_obj_faces(t_cop *scop, const char *obj, int *index)
-{
-    t_vec4 face;
-    int     i;
-
-    i = *index;;
-    i += 2;
-    printf("%s\n", obj);
- 
-
-    face.x = ft_atoii(obj, &i);
-    i++;
-    if (ft_isdigit(obj[i]) > 0)
-        face.y = ft_atoii(obj, &i);
-    i++;
-    if (ft_isdigit(obj[i]) > 0)
-        face.z = ft_atoii(obj, &i);
-    i++;
-    if (ft_isdigit(obj[i]) > 0)
-        face.w = (float)ft_atoii(obj, &i);
-    printf("%d, %d, %d, %d\n", face.x, face.y, face.z, face.w);
-    *index = i;
-    return (face);
-}
-
-
-float get_float_value(t_cop *scop, const char *obj, int *index)
-{
-    float   base;
-    float   value;
-    int     s;
-    int     i;
-
-    s = *index;
-    i = *index;
-    base = (float)ft_atoii(obj, &i);
-    while (obj[i] != '.')
-    {
-        i++;
-        if (ft_isalpha(obj[i]) > 0)
-            scop_return_error(scop, "error in obj fille\n");
-    }
-    i++;
-    value = ft_atoii(obj, &i);
-    value /= 1000000;
-    if (obj[s] == '-')
-        value *= -1;
-    *index = i;
-    return (base + value);
-}
-
-t_vec3 get_obj_vertices(t_cop *scop, const char *obj, int *index)
-{
-    t_vec3      vertex;
-    int         i;
-    int v;
-    
-    i = *index;
-    i += 2;
-    vertex.x = get_float_value(scop, obj, &i);
-    i++;
-    vertex.y = get_float_value(scop, obj, &i);
-    i++;
-    vertex.z = get_float_value(scop, obj, &i);
-    // printf("%f, %f, %f\n", vertex.x, vertex.y, vertex.z);
-    *index = i - 1;
-    return (vertex);
-}
-
-void obj_loader(t_cop *scop, const char *obj)
-{
-    int         i;
-    int         v;
-    int         f;
-    t_vec3      bufferv[100000];
-    t_vec4      bufferf[100000];
-    
+	int			i;
+    t_vec3      vector3;
+	char		**values;
 
     i = 0;
-    v = 0;
-    f = 0;
-    while (obj[i] != '\0' && (obj[i] == 'f' && obj[i + 1] == ' '))
-    {
-        if (obj[i] == 'v' && obj[i + 1] == ' ')
-        {
-            bufferv[v] = get_obj_vertices(scop, obj, &i);
-            v++;
-        }
-        i++;
-    }
-    while (obj[i] != '\0')
-    {
-        if (obj[i] == 'f' && obj[i + 1] == ' ')
-        {
-            bufferf[f] = get_obj_faces(scop, obj, i);
-            f++;
-        }
-        i++;
-
-    }
-    // scop->vt3_buffer_data = (GLfloat *)malloc(sizeof(GLfloat) * v);
-    obj_arrange_vertices(scop, bufferv, bufferf, f);
+	values = ft_strsplit(str, ' ');
+	ft_isdigit(values[0][0]) != 1 ? i++ : 0;
+    vector3.x = ft_atof(values[i]);
+	vector3.y = ft_atof(values[i + 1]);
+	vector3.z = ft_atof(values[i + 2]);
+    return (vector3);
 }
 
-void obj_reader(t_cop *scop, char *file)
+static void		set_buffer(t_cop *scop, char **obj, t_buffer_data *buffer)
 {
-    int fd;
-    const char *obj_file;
+    int         i;
+	int			v;
+	int			vt;
+	static int	vn;
+	t_vec3      vertex;
 
+    i = 0;
+	v = 0;
+	vt = 0;
+	vn = 0;
+    while (obj[i] != NULL)
+    {
+    	if (obj[i][0] == ' ')
+			buffer->v[v++] = get_vec3(obj[i]);
+		else if (obj[i][0] == 't')
+		   buffer->vt[vt++] = get_vec2(obj[i]);
+		else if (obj[i][0] == 'n')
+			buffer->vn[vn++] = get_vec3(obj[i]);
+		i++;
+    }
+	buffer->points = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+	buffer->lines = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+	buffer->triangles = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+	buffer->squads = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+}
+
+void 				obj_reader(t_cop *scop, char *file)
+{
+    int				fd;
+	int				face_index;
+    const char		*obj_file;
+	t_buffer_data	*buffer;
+	char			**obj;
+
+	face_index = 0;
     fd = open(file, O_RDONLY);
     if (fd == -1)
         scop_return_error(scop, "unable to open object file\n");
     file_to_string(scop, fd, &obj_file);
+	obj = ft_strsplit(obj_file, 'v');
+	buffer = (t_buffer_data*)malloc(sizeof(t_buffer_data));
+	set_buffer(scop, obj, buffer);
     close(fd);
-    obj_loader(scop, obj_file);
-    //scop->vt_buffer_data = vector3_to_float_array(scop, bufferv, scop->vt_buffer_data, v);
+	while (obj[face_index] != NULL)
+		face_index++;
+	obj_parcer(scop, buffer, obj[face_index - 1]);
 }

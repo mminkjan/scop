@@ -6,7 +6,7 @@
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/14 11:16:37 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/08/27 20:25:10 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/25 19:47:59 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 int					ft_strcmp(char const *s1, char const *s2);
 int					ft_strncmp(char const *s1, char const *s2, size_t len);
 void				ft_free_strarr(char **str_array);
+float				ft_atof(char *str);
 size_t				ft_atoi(const char *str);
 int				    ft_atoii(const char *str, int *index);
 int					ft_atoi_base(const char *str, int base);
