@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/08 14:56:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/25 23:05:17 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/26 23:35:57 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,43 @@
 
 static void		save_triangle(t_cop *scop, char *str, t_buffer_data *data)
 {
-	char		**set;
+	char		**group;
+    char        **values;
 	static int	index = 0;
+    int         vt_index;
 
-	set = ft_strsplit(str, ' ');
+	group = ft_strsplit(str, ' ');
+    values = ft_strsplit(group[0], '/');
+    printf("%d\n", index);
+	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values = ft_strsplit(group[1], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values = ft_strsplit(group[2], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->length_tr = index;
+    // index++;
+    // printf("%d\n", ft_atoi(values[0]));
 
-	printf("%f  -  %f  -  %f\n", data->v[(char)*set[0]- 1].x, data->v[(char)*set[0] - 1].y,  data->v[(char)*set[0] - 1].z);
-	data->triangles[index] = data->v[(char)*set[0]- 1].x;
-    data->triangles[index + 1] = data->v[(char)*set[0] - 1].y;
-    data->triangles[index + 2] = data->v[(char)*set[0] - 1].z;
-    data->triangles[index + 3] = data->v[(char)*set[1] - 1].x;
-    data->triangles[index + 4] = data->v[(char)*set[1] - 1].y;
-    data->triangles[index + 5] = data->v[(char)*set[1] - 1].z;
-    data->triangles[index + 6] = data->v[(char)*set[2] - 1].x;
-    data->triangles[index + 7] = data->v[(char)*set[2] - 1].y;
-    data->triangles[index + 8] = data->v[(char)*set[2] - 1].z;
-	index += 9;
-	printf("%f  -  %f  -  %f\n", data->triangles[index], data->triangles[index + 1],  data->triangles[index + 2]);
+
+    // while (*set)
+    // {
+    //     printf("%s\n", *set);
+    //     set++;
+    // }
+	// printf("%f  -  %f  -  %f\n", data->v[(char)*set[0]- 1].x, data->v[(char)*set[0] - 1].y,  data->v[(char)*set[0] - 1].z);
+    // printf("%d\n", ft_atoi(*set[0]));
+    // vt_index = ft_atoi(*set[0]);
+    // vt_index = ft_atoi(*set[1]);
+    // printf("%d\n", vt_index);
+    // vt_index = ft_atoi(*set[2]);
+    // printf("%d\n", vt_index);
+	// printf("%f  -  %f  -  %f\n", data->triangles[index], data->triangles[index + 1],  data->triangles[index + 2]);
 }
 
 static int	get_primitive(char *str)
@@ -67,6 +87,16 @@ void			obj_parcer(t_cop *scop, t_buffer_data *buffer, char *str)
 			save_triangle(scop, *faces, buffer);
 		faces++;
 	}
+    int index = 0;
+    scop->triangle_data = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_tr);
+    while (index < buffer->length_tr)
+    {
+        scop->triangle_data[index] = buffer->triangles[index];
+        printf("%f\n", buffer->triangles[index]);
+        // printf("%d\n", index);
+        index++;
+
+    }
     // if (primitive == 1)
     // 	save_point(scop, buffer , *face);
     // else if (primitive == 2)

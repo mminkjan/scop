@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/25 22:47:22 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/26 23:36:49 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <time.h>
 
 # define WINDOW_NAME "Scop"
-# define WIDTH	640
-# define HEIGHT 480
+# define WIDTH	800
+# define HEIGHT 600
 
 # define TRUE	1
 # define FALSE	0
@@ -35,7 +35,7 @@
 
 # define BUFFER 100000
 
-# define VDUB 3
+# define VDUB 10
 
 typedef struct	s_vec2 {
 	float		x;
@@ -64,6 +64,10 @@ typedef struct		s_buffer_data {
 	GLfloat			*lines;
 	GLfloat			*triangles;
 	GLfloat			*squads;
+    int             length_pt;
+    int             length_ln;
+    int             length_tr;
+    int             length_sq;
 }					t_buffer_data;
 
 typedef struct		s_cop {
