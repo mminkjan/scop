@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/26 23:36:49 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/02 18:14:56 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <time.h>
 
 # define WINDOW_NAME "Scop"
-# define WIDTH	800
-# define HEIGHT 600
+# define WIDTH	1000
+# define HEIGHT 1000
 
 # define TRUE	1
 # define FALSE	0
@@ -70,23 +70,34 @@ typedef struct		s_buffer_data {
     int             length_sq;
 }					t_buffer_data;
 
+typedef struct		s_obj_data {
+	GLfloat			*points;
+	int				points_lenght;
+	GLfloat			*lines;
+	int				lines_lenght;
+    GLfloat			*triangles;
+	int				triangles_lenght;
+	GLfloat			*quads;
+	int				quads_lenght;
+
+}					t_obj_data;
+
 typedef struct		s_cop {
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Surface		*surface;
 	SDL_Event		*event;
 	GLuint			*vertex_arrayID;
-	GLuint			vertex_buffer;
-    GLuint			color_buffer;
+	GLuint			triangles_buffer;
+	GLuint			quads_buffer;
+    GLuint			color_buffer1;
+	GLuint			color_buffer2;
 	GLuint			program_id;
-	GLfloat			*point_data;
-	GLfloat			*line_data;
-    GLfloat			*triangle_data;
-	GLfloat			*quad_data;
+	t_obj_data		obj_data;
 	bool			running;
 }					t_cop;
 
-int 	main(void);
+// int 	main(void);
 void	SDL_GL_init(t_cop *scop);
 void	render(t_cop *scop);
 void	scop_return_error(t_cop *cop, const char *message);

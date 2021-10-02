@@ -6,119 +6,38 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2021/09/26 23:50:41 by mminkjan      ########   odam.nl         */
+=======
+/*   Updated: 2021/10/02 18:17:55 by mminkjan      ########   odam.nl         */
+>>>>>>> b5cf5fe7dcd5b01626d654e190426dc5e6a12190
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-
-void set_vertexes(t_cop *scop)
+void create_array_buffer_quads(t_cop *scop)
 {
-	GLuint vt_array_id;
+	GLfloat vt_buffer_data[scop->obj_data.quads_lenght];
 
-	glGenVertexArrays(1, &vt_array_id);
-	glBindVertexArray(vt_array_id); 
-	
-	static  GLfloat vt_buffer_data[] = {
-   -0.5f,-0.5f,-0.5f, // triangle 0.5 begin
-    -0.5f,-0.5f, 0.5f,
-    -0.5f, 0.5f, 0.5f, // triangle 0.5 end
-    0.5f, 0.5f,-0.5f, // triangle 2 : begin
-    -0.5f,-0.5f,-0.5f,
-    -0.5f, 0.5f,-0.5f, // triangle 2 : end
-    0.5f,-0.5f, 0.5f,
-    -0.5f,-0.5f,-0.5f,
-    0.5f,-0.5f,-0.5f,
-    0.5f, 0.5f,-0.5f,
-    0.5f,-0.5f,-0.5f,
-    -0.5f,-0.5f,-0.5f,
-    -0.5f,-0.5f,-0.5f,
-    -0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f,-0.5f,
-    0.5f,-0.5f, 0.5f,
-    -0.5f,-0.5f, 0.5f,
-    -0.5f,-0.5f,-0.5f,
-    -0.5f, 0.5f, 0.5f,
-    -0.5f,-0.5f, 0.5f,
-    0.5f,-0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-    0.5f,-0.5f,-0.5f,
-    0.5f, 0.5f,-0.5f,
-    0.5f,-0.5f,-0.5f,
-    0.5f, 0.5f, 0.5f,
-    0.5f,-0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-    0.5f, 0.5f,-0.5f,
-    -0.5f, 0.5f,-0.5f,
-    0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f,-0.5f,
-    -0.5f, 0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f, 0.5f,
-    0.5f,-0.5f, 0.5f
-	};
-
-    for (int i = 0; i < (12 * 3); i++)
+	for (int i = 0; i < (scop->obj_data.quads_lenght / 4); i++)
     {
-        // printf("1 %f\n", vt_buffer_data[i]);
         t_vec3 vector;
-        vector.x = scop->triangle_data[3*i+0] / 2;
-        vector.y = scop->triangle_data[3*i+1] / 2;
-        vector.z = scop->triangle_data[3*i+2] / 2;
+        vector.x = scop->obj_data.quads[3*i+0] / 2;
+        vector.y = scop->obj_data.quads[3*i+1] / 2;
+        vector.z = scop->obj_data.quads[3*i+2] / 2;
         iso_projection(&vector);
         vt_buffer_data[3*i+0] = vector.x;
-        vt_buffer_data[3*i+1] = vector.y;
+       	vt_buffer_data[3*i+1] = vector.y;
         vt_buffer_data[3*i+2] = vector.z;
-        // printf("2 %f\n", vt_buffer_data[i]);
     }
 
-	//glGenVertexArrays(1, &VAO);  
-	glGenBuffers(1, &scop->vertex_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, scop->vertex_buffer);
+	glGenBuffers(1, &scop->quads_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, scop->quads_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vt_buffer_data), vt_buffer_data, GL_STATIC_DRAW);
 
-    static  GLfloat g_color_buffer_data[] = {
-    0.583f,  0.771f,  0.014f,
-    0.609f,  0.115f,  0.436f,
-    0.327f,  0.483f,  0.844f,
-    0.822f,  0.569f,  0.201f,
-    0.435f,  0.602f,  0.223f,
-    0.310f,  0.747f,  0.185f,
-    0.597f,  0.770f,  0.761f,
-    0.559f,  0.436f,  0.730f,
-    0.359f,  0.583f,  0.152f,
-    0.483f,  0.596f,  0.789f,
-    0.559f,  0.861f,  0.639f,
-    0.195f,  0.548f,  0.859f,
-    0.014f,  0.184f,  0.576f,
-    0.771f,  0.328f,  0.970f,
-    0.406f,  0.615f,  0.116f,
-    0.676f,  0.977f,  0.133f,
-    0.971f,  0.572f,  0.833f,
-    0.140f,  0.616f,  0.489f,
-    0.997f,  0.513f,  0.064f,
-    0.945f,  0.719f,  0.592f,
-    0.543f,  0.021f,  0.978f,
-    0.279f,  0.317f,  0.505f,
-    0.167f,  0.620f,  0.077f,
-    0.347f,  0.857f,  0.137f,
-    0.055f,  0.953f,  0.042f,
-    0.714f,  0.505f,  0.345f,
-    0.783f,  0.290f,  0.734f,
-    0.722f,  0.645f,  0.174f,
-    0.302f,  0.455f,  0.848f,
-    0.225f,  0.587f,  0.040f,
-    0.517f,  0.713f,  0.338f,
-    0.053f,  0.959f,  0.120f,
-    0.393f,  0.621f,  0.362f,
-    0.673f,  0.211f,  0.457f,
-    0.820f,  0.883f,  0.371f,
-    0.982f,  0.099f,  0.879f
-    };
-
-
-    for (int i = 0; i < (12 * 3); i++)
+	GLfloat g_color_buffer_data[scop->obj_data.quads_lenght];
+    for (int i = 0; i < (scop->obj_data.quads_lenght / 4); i++)
     {
         float t = (float)rand()/(float)RAND_MAX;
         g_color_buffer_data[3*i+0] = 9*(1-t)*t*t*t;
@@ -127,18 +46,78 @@ void set_vertexes(t_cop *scop)
         // printf("%f, %f, %f\n",  g_color_buffer_data[3*i+0], g_color_buffer_data[3*i+1], g_color_buffer_data[3*i+2]);
     }
 
-    glGenBuffers(1, &scop->color_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer);
+    glGenBuffers(1, &scop->color_buffer2);
+    glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer2);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+}
+
+
+void create_array_buffer_trianges(t_cop *scop)
+{
+	GLfloat vt_buffer_data[scop->obj_data.triangles_lenght];
+	
+    for (int i = 0; i < (scop->obj_data.triangles_lenght / 3); i++)
+    {
+        t_vec3 vector;
+<<<<<<< HEAD
+        vector.x = scop->triangle_data[3*i+0] / 2;
+        vector.y = scop->triangle_data[3*i+1] / 2;
+        vector.z = scop->triangle_data[3*i+2] / 2;
+=======
+        vector.x = scop->obj_data.triangles[3*i+0] / 3;
+        vector.y = scop->obj_data.triangles[3*i+1] / 3;
+        vector.z = scop->obj_data.triangles[3*i+2] / 3;
+>>>>>>> b5cf5fe7dcd5b01626d654e190426dc5e6a12190
+        iso_projection(&vector);
+        vt_buffer_data[3*i+0] = vector.x;
+       	vt_buffer_data[3*i+1] = vector.y;
+        vt_buffer_data[3*i+2] = vector.z;
+    }
+
+	glGenBuffers(1, &scop->triangles_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, scop->triangles_buffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vt_buffer_data), vt_buffer_data, GL_STATIC_DRAW);
+
+
+    GLfloat g_color_buffer_data[scop->obj_data.triangles_lenght];
+    for (int i = 0; i < (scop->obj_data.triangles_lenght / 3); i++)
+    {
+        float t = (float)rand()/(float)RAND_MAX;
+        g_color_buffer_data[3*i+0] = 9*(1-t)*t*t*t;
+        g_color_buffer_data[3*i+1] = 15*(1-t)*(1-t)*t*t;
+        g_color_buffer_data[3*i+2] = 8.5*(1-t)*(1-t)*(1-t)*t;
+        // printf("%f, %f, %f\n",  g_color_buffer_data[3*i+0], g_color_buffer_data[3*i+1], g_color_buffer_data[3*i+2]);
+    }
+
+    glGenBuffers(1, &scop->color_buffer1);
+    glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer1);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 }
 
 void	render(t_cop *scop)
 {
+	GLuint vt_array_id;
 	SDL_Event e;
 	bool quit = false;
     double	time;
+	
 
-	set_vertexes(scop);
+	// if (scop->obj_data.points_lenght > 0)
+	// 	create_array_buffer_points(scop);
+	// if (scop->obj_data.lines_lenght > 0)
+	// 	create_array_buffer_lines(scop);
+	if (scop->obj_data.triangles_lenght > 0)
+		create_array_buffer_trianges(scop);
+	if (scop->obj_data.quads_lenght > 0)
+		create_array_buffer_quads(scop);
+
+	
+	glGenVertexArrays(4, &vt_array_id);
+	glBindVertexArray(vt_array_id[0]);
+	glBindVertexArray(vt_array_id[1]);
+	glBindVertexArray(vt_array_id[2]);
+	glBindVertexArray(vt_array_id[3]);
+	
 	while (!quit)
 	{
     	while (SDL_PollEvent(&e))
@@ -154,17 +133,29 @@ void	render(t_cop *scop)
     	//glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(scop->program_id);
+		
 		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, scop->vertex_buffer);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->triangles_buffer);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  0, NULL);
-
+		
         glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+		
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->quads_buffer);
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE,  0, NULL);
+
+		glEnableVertexAttribArray(3);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer2);
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+
+
         
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
-		glDrawArrays(GL_TRIANGLES, 0, 12*3);
+		glDrawArrays(GL_TRIANGLES, 0, scop->obj_data.triangles_lenght / 3);
+		glDrawArrays(GL_QUADS, 2, scop->obj_data.quads_lenght / 4);
 		glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
     	SDL_GL_SwapWindow(scop->window);
