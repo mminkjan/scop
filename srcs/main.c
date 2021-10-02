@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/25 20:43:37 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/02 17:04:43 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	scop_return_error(t_cop *cop, const char *message)
 	exit (0);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_cop scop;
 
-      printf("loaded objects\n");
+    printf("loaded objects\n");
 	SDL_GL_init(&scop);
     get_shaders(&scop);
-    obj_reader(&scop, "resources/models/cube.obj");
+    obj_reader(&scop, "resources/models/42.obj");
 	render(&scop);
 	return (0);
 }

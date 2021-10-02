@@ -6,68 +6,142 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/08 14:56:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/26 23:35:57 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/02 17:05:47 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/scop.h"
 
-
-
-
-static void		save_triangle(t_cop *scop, char *str, t_buffer_data *data)
+static void		glfloatncopy(GLfloat *dst, GLfloat *src, size_t len)
 {
-	char		**group;
-    char        **values;
-	static int	index = 0;
-    int         vt_index;
+	for (int i = 0; i < len; i++)
+		dst[i] = src[i];
+}
 
-	group = ft_strsplit(str, ' ');
-    values = ft_strsplit(group[0], '/');
-    printf("%d\n", index);
+static void		set_obj_data(t_cop *scop, t_buffer_data *buffer)
+{
+	if (buffer->length_pt > 0)
+	{
+		scop->obj_data.points = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_pt);
+		if (scop->obj_data.points == NULL)
+			scop_return_error(scop, "NULL pointer in set_obj_data\n");
+		scop->obj_data.points_lenght = buffer->length_pt;
+		glfloatncopy(scop->obj_data.points, buffer->points, buffer->length_pt);
+		
+	}
+	if (buffer->length_ln > 0)
+	{
+		scop->obj_data.lines = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_ln);
+		if (scop->obj_data.lines == NULL)
+			scop_return_error(scop, "NULL pointer in set_obj_data\n");
+		scop->obj_data.lines_lenght = buffer->length_ln;
+		glfloatncopy(scop->obj_data.lines, buffer->lines, buffer->length_ln);
+	}
+	if (buffer->length_tr > 0)
+	{
+    	scop->obj_data.triangles = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_tr);
+		if (scop->obj_data.triangles == NULL)
+			scop_return_error(scop, "NULL pointer in set_obj_data\n");
+		scop->obj_data.triangles_lenght = buffer->length_tr;
+		glfloatncopy(scop->obj_data.triangles, buffer->triangles, buffer->length_tr);
+	}
+	if (buffer->length_sq > 0)
+	{
+		scop->obj_data.quads = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_sq);
+		if (scop->obj_data.quads == NULL)
+			scop_return_error(scop, "NULL pointer in set_obj_data\n");
+		scop->obj_data.quads_lenght = buffer->length_sq;
+		glfloatncopy(scop->obj_data.quads, buffer->squads, buffer->length_sq);
+	}
+}
+
+static void		save_point(t_cop *scop, char **faces, t_buffer_data *data)
+{
+	static int	index = 0;
+    char        **values;
+
+    values = ft_strsplit(faces[0], '/');
+	data->points[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->points[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->points[index++] = data->v[ft_atoi(values[0]) - 1].z;
+	data->length_pt = index;
+}
+
+static void		save_line(t_cop *scop, char **faces, t_buffer_data *data)
+{
+	static int	index = 0;
+    char        **values;
+
+    values = ft_strsplit(faces[0], '/');
 	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
-    values = ft_strsplit(group[1], '/');
+    values = ft_strsplit(faces[1], '/');
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
-    values = ft_strsplit(group[2], '/');
+	data->length_ln = index;
+}
+
+static void		save_triangle(t_cop *scop, char **faces, t_buffer_data *data)
+{
+	static int	index = 0;
+    char        **values;
+
+    values = ft_strsplit(faces[0], '/');
+	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+	printf("%f\n", data->triangles[0]);
+    values = ft_strsplit(faces[1], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values = ft_strsplit(faces[2], '/');
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
     data->length_tr = index;
-    // index++;
-    // printf("%d\n", ft_atoi(values[0]));
-
-
-    // while (*set)
-    // {
-    //     printf("%s\n", *set);
-    //     set++;
-    // }
-	// printf("%f  -  %f  -  %f\n", data->v[(char)*set[0]- 1].x, data->v[(char)*set[0] - 1].y,  data->v[(char)*set[0] - 1].z);
-    // printf("%d\n", ft_atoi(*set[0]));
-    // vt_index = ft_atoi(*set[0]);
-    // vt_index = ft_atoi(*set[1]);
-    // printf("%d\n", vt_index);
-    // vt_index = ft_atoi(*set[2]);
-    // printf("%d\n", vt_index);
-	// printf("%f  -  %f  -  %f\n", data->triangles[index], data->triangles[index + 1],  data->triangles[index + 2]);
 }
+
+static void		save_squad(t_cop *scop, char **faces, t_buffer_data *data)
+{
+	static int	index = 0;
+    char        **values;
+
+    values = ft_strsplit(faces[0], '/');
+	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values = ft_strsplit(faces[1], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values = ft_strsplit(faces[2], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+	 values = ft_strsplit(faces[3], '/');
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->length_sq = index;
+}
+
 
 static int	get_primitive(char *str)
 {
 	int		white_space;
+	int		i = 0;
 
 	white_space = 0;
-	while (*str)
+	while (str[i])
 	{
-		if (ft_iswhitespace(*str) == 1)
+		if (ft_iswhitespace(str[i]) == 1)
 			white_space++;
-		str++;
+		i++;
 	}
-	// printf("%d\n", white_space);
+	printf("str = %s | primitives = %d\n", str, white_space);
 	return (white_space);
 }
 
@@ -77,30 +151,30 @@ void			obj_parcer(t_cop *scop, t_buffer_data *buffer, char *str)
 	char		**faces;
 
 	faces = ft_strsplit(str, 'f');
+	faces++;
 	while (*faces != NULL && *faces[0] != ' ')
 		faces++;
 	while (*faces)
 	{
-		// printf("%s\n", *faces);
 		primitive = get_primitive(*faces);
-		if (primitive == 3)
-			save_triangle(scop, *faces, buffer);
+		switch (primitive)
+		{
+			case 1:
+				save_point(scop, ft_strsplit(*faces, ' '), buffer);
+				break;
+			case 2:
+				save_line(scop, ft_strsplit(*faces, ' '), buffer);
+				break;
+			case 3:
+				save_triangle(scop, ft_strsplit(*faces, ' '), buffer);
+				break;
+			case 4:
+				save_squad(scop, ft_strsplit(*faces, ' '), buffer);
+				break;
+			default:
+				scop_return_error(scop, "invalid amount of primitives\n");
+		}
 		faces++;
 	}
-    int index = 0;
-    scop->triangle_data = (GLfloat*)malloc(sizeof(GLfloat) * buffer->length_tr);
-    while (index < buffer->length_tr)
-    {
-        scop->triangle_data[index] = buffer->triangles[index];
-        printf("%f\n", buffer->triangles[index]);
-        // printf("%d\n", index);
-        index++;
-
-    }
-    // if (primitive == 1)
-    // 	save_point(scop, buffer , *face);
-    // else if (primitive == 2)
-    //     save_line(scop, obj, *index);
-    // else if (primitive == 4)
-    //     save_quad(scop, obj, *index);
+	set_obj_data(scop, buffer);
 }
