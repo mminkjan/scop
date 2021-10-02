@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/26 23:40:25 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/09/26 23:50:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void set_vertexes(t_cop *scop)
     {
         // printf("1 %f\n", vt_buffer_data[i]);
         t_vec3 vector;
-        vector.x = scop->triangle_data[3*i+0];
-        vector.y = scop->triangle_data[3*i+1];
-        vector.z = scop->triangle_data[3*i+2];
+        vector.x = scop->triangle_data[3*i+0] / 2;
+        vector.y = scop->triangle_data[3*i+1] / 2;
+        vector.z = scop->triangle_data[3*i+2] / 2;
         iso_projection(&vector);
         vt_buffer_data[3*i+0] = vector.x;
         vt_buffer_data[3*i+1] = vector.y;
