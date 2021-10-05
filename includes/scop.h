@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/02 18:14:56 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/05 16:32:24 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <time.h>
 
 # define WINDOW_NAME "Scop"
-# define WIDTH	1000
+# define WIDTH	1400
 # define HEIGHT 1000
 
 # define TRUE	1
@@ -63,7 +63,7 @@ typedef struct		s_buffer_data {
 	GLfloat			*points;
 	GLfloat			*lines;
 	GLfloat			*triangles;
-	GLfloat			*squads;
+	GLfloat			*quads;
     int             length_pt;
     int             length_ln;
     int             length_tr;
@@ -87,7 +87,8 @@ typedef struct		s_cop {
 	SDL_GLContext	context;
 	SDL_Surface		*surface;
 	SDL_Event		*event;
-	GLuint			*vertex_arrayID;
+	GLuint			vt_array_tr;
+	GLuint			vt_array_qd;
 	GLuint			triangles_buffer;
 	GLuint			quads_buffer;
     GLuint			color_buffer1;

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/08 14:56:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/02 17:05:47 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/05 19:31:58 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static void		glfloatncopy(GLfloat *dst, GLfloat *src, size_t len)
 {
 	for (int i = 0; i < len; i++)
+	{
 		dst[i] = src[i];
+	}
 }
 
 static void		set_obj_data(t_cop *scop, t_buffer_data *buffer)
@@ -51,7 +53,7 @@ static void		set_obj_data(t_cop *scop, t_buffer_data *buffer)
 		if (scop->obj_data.quads == NULL)
 			scop_return_error(scop, "NULL pointer in set_obj_data\n");
 		scop->obj_data.quads_lenght = buffer->length_sq;
-		glfloatncopy(scop->obj_data.quads, buffer->squads, buffer->length_sq);
+		glfloatncopy(scop->obj_data.quads, buffer->quads, buffer->length_sq);
 	}
 }
 
@@ -73,13 +75,13 @@ static void		save_line(t_cop *scop, char **faces, t_buffer_data *data)
     char        **values;
 
     values = ft_strsplit(faces[0], '/');
-	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+	data->lines[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->lines[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->lines[index++] = data->v[ft_atoi(values[0]) - 1].z;
     values = ft_strsplit(faces[1], '/');
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->lines[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->lines[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->lines[index++] = data->v[ft_atoi(values[0]) - 1].z;
 	data->length_ln = index;
 }
 
@@ -92,7 +94,7 @@ static void		save_triangle(t_cop *scop, char **faces, t_buffer_data *data)
 	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
-	printf("%f\n", data->triangles[0]);
+	// printf("%f\n", data->triangles[0]);
     values = ft_strsplit(faces[1], '/');
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
@@ -110,21 +112,22 @@ static void		save_squad(t_cop *scop, char **faces, t_buffer_data *data)
     char        **values;
 
     values = ft_strsplit(faces[0], '/');
-	data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+
+	data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
     values = ft_strsplit(faces[1], '/');
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
     values = ft_strsplit(faces[2], '/');
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
 	 values = ft_strsplit(faces[3], '/');
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->triangles[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
     data->length_sq = index;
 }
 
@@ -141,7 +144,8 @@ static int	get_primitive(char *str)
 			white_space++;
 		i++;
 	}
-	printf("str = %s | primitives = %d\n", str, white_space);
+	if (ft_iswhitespace(str[i - 1]) == 1)
+		white_space = -1;
 	return (white_space);
 }
 

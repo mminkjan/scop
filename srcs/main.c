@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/02 17:04:43 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/05 19:26:06 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int		main(int argc, char **argv)
 {
 	t_cop scop;
 
-    printf("loaded objects\n");
+	ft_bzero(&scop, sizeof(t_cop));
 	SDL_GL_init(&scop);
     get_shaders(&scop);
-    obj_reader(&scop, "resources/models/42.obj");
+    obj_reader(&scop, "resources/models/lines.obj");
 	render(&scop);
 	return (0);
 }
