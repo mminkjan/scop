@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/08 14:56:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 19:31:58 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 14:49:25 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,35 @@ static void		save_triangle(t_cop *scop, char **faces, t_buffer_data *data)
 static void		save_squad(t_cop *scop, char **faces, t_buffer_data *data)
 {
 	static int	index = 0;
-    char        **values;
+    char        **values0;
+	char        **values2;
+	char		**values;
 
-    values = ft_strsplit(faces[0], '/');
 
-	data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
+    values0 = ft_strsplit(faces[0], '/');
+	data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].z;
+
     values = ft_strsplit(faces[1], '/');
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
-    values = ft_strsplit(faces[2], '/');
-    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
-    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
-    data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;
-	 values = ft_strsplit(faces[3], '/');
+	
+    values2 = ft_strsplit(faces[2], '/');
+    data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].z;
+	
+    data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values0[0]) - 1].z;
+
+	data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].x;
+    data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].y;
+    data->quads[index++] = data->v[ft_atoi(values2[0]) - 1].z;
+
+	values = ft_strsplit(faces[3], '/');
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].x;
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].y;
     data->quads[index++] = data->v[ft_atoi(values[0]) - 1].z;

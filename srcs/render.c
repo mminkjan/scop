@@ -6,20 +6,24 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 19:37:20 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 15:46:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-
-GLuint create_array_buffer_trianges(t_cop *scop)
+GLuint save_buffer_datat(t_cop *scop)
 {
-	GLfloat vt_buffer_data[scop->obj_data.triangles_lenght];
-	GLuint tr_array_id;
+	GLuint VBO_size;
+	GLuint VBO;
 
-	glGenVertexArrays(1, &tr_array_id);
-	glBindVertexArray(tr_array_id); 
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	VBO_size = scop->obj_data.points_lenght * scop->obj_data.lines_lenght * \
+		scop->obj_data.triangles_lenght * scop->obj_data.quads_lenght;
+	glBufferData(GL_ARRAY_BUFFER, VBO_size, 0, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, scop->obj_data.triangles_lenght, scop->obj_data.triangles);
+	glBufferSubData(GL_ARRAY_BUFFER, scop->obj_data.triangles_lenght, scop->obj_data.quads_lenght, scop->obj_quads.triangles);
 	
     for (int i = 0; i < (scop->obj_data.triangles_lenght / 3); i++)
     {
@@ -60,12 +64,14 @@ void	render(t_cop *scop)
 {
 	SDL_Event e;
 	bool quit = false;
-	GLuint	tr_array_id;
-	GLuint	qd_array_id;
+	GLuint	VBO;
 
  
+	glGenBuffers(1, &VBO);
 	if (scop->obj_data.triangles_lenght > 0)
-		tr_array_id = create_array_buffer_trianges(scop);
+		create_array_buffer_triangles(scop, VBO);
+	if (scop->obj_data.triangles_lenght > 0)
+		qd_array_id = create_array_buffer_triangles(scop);
 	while (!quit)
 	{
     	while (SDL_PollEvent(&e))
@@ -73,17 +79,26 @@ void	render(t_cop *scop)
         	if (e.type == SDL_QUIT)
             	quit = true;
         }
-        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(scop->program_id);
 		
-		// glBindVertexArray(tr_array_id);
-		// glEnableVertexAttribArray(0);
-		// glBindBuffer(GL_ARRAY_BUFFER, scop->vt_array_tr);
-		// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  0, NULL);
-        // glEnableVertexAttribArray(1);
-		// glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer1);
-		// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  0, NULL);
-		// glDrawArrays(GL_TRIANGLES, 0, scop->obj_data.triangles_lenght);
+		glBindVertexArray(tr_array_id);
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->vt_array_tr);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+        glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+		glDrawArrays(GL_TRIANGLES, 0, scop->obj_data.triangles_lenght);
+
+		glBindVertexArray(qd_array_id);
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->vt_array_qd);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+        glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, scop->color_buffer2);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  0, NULL);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, scop->obj_data.quads_lenght);
         
         // glEnable(GL_DEPTH_TEST);
         // glDepthFunc(GL_LESS);

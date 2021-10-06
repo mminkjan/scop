@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 19:26:47 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 14:38:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void		set_buffer(t_cop *scop, char **obj, t_buffer_data *buffer)
 	buffer->points = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
 	buffer->lines = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
 	buffer->triangles = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
-	buffer->quads = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+	buffer->quads = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB * 1.5);
 }
 
 void 				obj_reader(t_cop *scop, char *file)
