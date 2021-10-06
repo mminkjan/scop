@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 16:32:24 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 18:02:37 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ typedef struct		s_buffer_data {
     int             length_sq;
 }					t_buffer_data;
 
-typedef struct		s_obj_data {
+typedef struct		s_obj {
+	GLfloat			*vertices;
+	GLuint			vertices_lenght;
 	GLfloat			*points;
 	int				points_lenght;
 	GLfloat			*lines;
@@ -80,7 +82,7 @@ typedef struct		s_obj_data {
 	GLfloat			*quads;
 	int				quads_lenght;
 
-}					t_obj_data;
+}					t_obj;
 
 typedef struct		s_cop {
 	SDL_Window		*window;
@@ -94,7 +96,7 @@ typedef struct		s_cop {
     GLuint			color_buffer1;
 	GLuint			color_buffer2;
 	GLuint			program_id;
-	t_obj_data		obj_data;
+	t_obj			obj;
 	bool			running;
 }					t_cop;
 

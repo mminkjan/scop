@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 19:26:06 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 18:13:35 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		main(int argc, char **argv)
 	SDL_GL_init(&scop);
     get_shaders(&scop);
     obj_reader(&scop, "resources/models/lines.obj");
-	render(&scop);
+	// render(&scop);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/05 19:26:47 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/06 18:17:02 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void 				obj_reader(t_cop *scop, char *file)
         scop_return_error(scop, "unable to open object file\n");
     file_to_string(scop, fd, &obj_file);
 	obj = ft_strsplit(obj_file, 'v');
+	printf("???\n");
 	buffer = (t_buffer_data*)malloc(sizeof(t_buffer_data));
 	set_buffer(scop, obj, buffer);
     close(fd);
