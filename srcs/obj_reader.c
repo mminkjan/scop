@@ -6,41 +6,87 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/06 18:17:02 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/12 18:48:57 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/scop.h"
 
-static			t_vec2 get_vec2(char *str)
+static int	get_primitive(char *str)
 {
-	int			i;
-	t_vec2		vector2;
-	char		**values;
-    
-	i = 1;
-	values = ft_strsplit(str, ' ');
-    vector2.x = ft_atof(values[i]);
-	vector2.y = ft_atof(values[i + 1]);
-    return (vector2);
+	int		white_space;
+	int		i = 0;
+
+	white_space = 0;
+	while (str[i])
+	{
+		if (ft_iswhitespace(str[i]) == 1)
+			white_space++;
+		i++;
+	}
+	if (ft_iswhitespace(str[i - 1]) == 1)
+		white_space = -1;
+	return (white_space);
 }
 
-static			t_vec3 get_vec3(char *str)
-{
-	int			i;
-    t_vec3      vector3;
-	char		**values;
 
-    i = 0;
-	values = ft_strsplit(str, ' ');
-	ft_isdigit(values[0][0]) != 1 ? i++ : 0;
-    vector3.x = ft_atof(values[i]);
-	vector3.y = ft_atof(values[i + 1]);
-	vector3.z = ft_atof(values[i + 2]);
-    return (vector3);
+static void		copy_uints(GLuint *dst, GLuint *src, size_t len)
+{	
+	for (int i = 0; i < len; i++)
+		dst[i] = src[i];
 }
 
-static void		set_buffer(t_cop *scop, char **obj, t_buffer_data *buffer)
+static void		copy_floats(GLfloat *dst, GLfloat *src, size_t len)
+{	
+	for (int i = 0; i < len; i++)
+		dst[i] = src[i];
+}
+
+static void get_values(GLfloat *buffer, char *str, GLuint *index, int amount)
+{
+	char		**values;
+
+	values = ft_strsplit(str, ' ');
+	ft_isdigit(values[0][0]) != 1 ? values++ : 0;
+	for (int i = 0; i < amount; i++)
+    	buffer[(*index)++] = ft_atof(*values++);
+}
+
+static void		save_obj_f(t_cop *scop, char *obj, GLuint *indices)
+{
+	char		**faces;
+	int			primitives;
+	char		**values;
+	static int	i;
+
+	faces = ft_strsplit(obj, 'f');
+	faces++;
+	while (*faces != NULL && *faces[0] != ' ')
+		faces++;
+	while (*faces != NULL)
+	{
+		values = ft_strsplit(*faces, ' ');
+		primitives = get_primitive(*faces);
+		if (primitives == 4)
+			scop->triangle_fan = true;
+		else if (primitives == 2)
+			scop->line = true;
+		else if (primitives == 1)
+			scop->points = true;
+		while (*values)
+		{
+			indices[i] = (GLuint)ft_atoi(values[0] - 1);
+			scop->obj.i_length++;
+			values++;
+			i++;
+		}
+		faces++;
+	}
+	for (int i = 0; faces[i] != NULL; i++)
+		free(faces[i]);
+}
+
+static void		save_obj(t_cop *scop, char **obj, t_buffer_data *buffer)
 {
     int         i;
 	int			v;
@@ -55,17 +101,24 @@ static void		set_buffer(t_cop *scop, char **obj, t_buffer_data *buffer)
     while (obj[i] != NULL)
     {
     	if (obj[i][0] == ' ')
-			buffer->v[v++] = get_vec3(obj[i]);
+			get_values(buffer->v, obj[i], &scop->obj.v_length, 3);
 		else if (obj[i][0] == 't')
-		   buffer->vt[vt++] = get_vec2(obj[i]);
+			get_values(buffer->vt, obj[i], &scop->obj.vt_length, 2);
 		else if (obj[i][0] == 'n')
-			buffer->vn[vn++] = get_vec3(obj[i]);
+			get_values(buffer->vn, obj[i], &scop->obj.vn_length, 3);
 		i++;
     }
-	buffer->points = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
-	buffer->lines = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
-	buffer->triangles = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
-	buffer->quads = (GLfloat*)malloc((sizeof(GLfloat) * v) * VDUB);
+	save_obj_f(scop, obj[i - 1], buffer->i);
+	scop->obj.i = (GLuint*)malloc(sizeof(GLuint) * scop->obj.i_length);
+	copy_uints(scop->obj.i, buffer->i, scop->obj.i_length);
+	scop->obj.v = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.v_length);
+	copy_floats(scop->obj.v, buffer->v, scop->obj.v_length);
+	scop->obj.vt = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.vt_length);
+	copy_floats(scop->obj.vt, buffer->vt, scop->obj.vt_length);
+	scop->obj.vn = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.vn_length);
+	copy_floats(scop->obj.vn, buffer->vn, scop->obj.vn_length);
+	for (int i = 0; i < scop->obj.v_length; i++)
+		printf("%f\n", scop->obj.v[i]);
 }
 
 void 				obj_reader(t_cop *scop, char *file)
@@ -82,11 +135,11 @@ void 				obj_reader(t_cop *scop, char *file)
         scop_return_error(scop, "unable to open object file\n");
     file_to_string(scop, fd, &obj_file);
 	obj = ft_strsplit(obj_file, 'v');
-	printf("???\n");
 	buffer = (t_buffer_data*)malloc(sizeof(t_buffer_data));
-	set_buffer(scop, obj, buffer);
+	ft_bzero(&scop->obj, sizeof(t_obj));
+	save_obj(scop, obj, buffer);
+
     close(fd);
-	while (obj[face_index] != NULL)
-		face_index++;
-	obj_parcer(scop, buffer, obj[face_index - 1]);
+	for (int i = 0; obj[i] != NULL; i++)
+		free(obj[i]);
 }

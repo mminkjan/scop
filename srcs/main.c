@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/06 18:13:35 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/12 14:17:04 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(int argc, char **argv)
 	ft_bzero(&scop, sizeof(t_cop));
 	SDL_GL_init(&scop);
     get_shaders(&scop);
-    obj_reader(&scop, "resources/models/lines.obj");
-	// render(&scop);
+    obj_reader(&scop, "resources/models/cube.obj");
+	render(&scop);
 	return (0);
 }

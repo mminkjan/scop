@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/06 18:02:37 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/12 18:33:16 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,21 @@ typedef struct	s_vec4 {
 }				t_vec4;
 
 typedef struct		s_buffer_data {
-	t_vec3			v[BUFFER];
-	t_vec2			vt[BUFFER]; 
-	t_vec3			vn[BUFFER];
-	GLfloat			*points;
-	GLfloat			*lines;
-	GLfloat			*triangles;
-	GLfloat			*quads;
-    int             length_pt;
-    int             length_ln;
-    int             length_tr;
-    int             length_sq;
+	GLfloat			v[BUFFER];
+	GLfloat			vt[BUFFER]; 
+	GLfloat			vn[BUFFER];
+	GLuint			i[BUFFER];
 }					t_buffer_data;
 
 typedef struct		s_obj {
-	GLfloat			*vertices;
-	GLuint			vertices_lenght;
-	GLfloat			*points;
-	int				points_lenght;
-	GLfloat			*lines;
-	int				lines_lenght;
-    GLfloat			*triangles;
-	int				triangles_lenght;
-	GLfloat			*quads;
-	int				quads_lenght;
+	GLfloat			*v;
+	GLuint			v_length;
+	GLfloat			*vt;
+	GLuint			vt_length;
+	GLfloat			*vn;
+	GLuint			vn_length;
+    GLuint			*i;
+	GLuint			i_length;
 
 }					t_obj;
 
@@ -89,7 +80,10 @@ typedef struct		s_cop {
 	SDL_GLContext	context;
 	SDL_Surface		*surface;
 	SDL_Event		*event;
-	GLuint			vt_array_tr;
+	GLuint			VAO;
+	GLuint			VBO;
+	GLuint			IBO;
+	GLuint			CBO;
 	GLuint			vt_array_qd;
 	GLuint			triangles_buffer;
 	GLuint			quads_buffer;
@@ -98,6 +92,9 @@ typedef struct		s_cop {
 	GLuint			program_id;
 	t_obj			obj;
 	bool			running;
+	bool			triangle_fan;
+	bool			line;
+	bool			points;
 }					t_cop;
 
 // int 	main(void);
