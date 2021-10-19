@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/12 18:33:16 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/19 14:02:45 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct		s_buffer_data {
 	GLfloat			v[BUFFER];
 	GLfloat			vt[BUFFER]; 
 	GLfloat			vn[BUFFER];
-	GLuint			i[BUFFER];
+	GLushort		i[BUFFER];
 }					t_buffer_data;
 
 typedef struct		s_obj {
@@ -70,7 +70,7 @@ typedef struct		s_obj {
 	GLuint			vt_length;
 	GLfloat			*vn;
 	GLuint			vn_length;
-    GLuint			*i;
+    GLushort		*i;
 	GLuint			i_length;
 
 }					t_obj;

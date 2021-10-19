@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/12 18:48:57 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/19 19:36:21 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ static int	get_primitive(char *str)
 }
 
 
-static void		copy_uints(GLuint *dst, GLuint *src, size_t len)
+static void		copy_ushorts(GLushort *dst, GLushort *src, size_t len)
 {	
-	for (int i = 0; i < len; i++)
+	for (int i = 0; i < len; i++){
 		dst[i] = src[i];
+	}
 }
 
 static void		copy_floats(GLfloat *dst, GLfloat *src, size_t len)
 {	
 	for (int i = 0; i < len; i++)
+	{
 		dst[i] = src[i];
+	}
 }
 
 static void get_values(GLfloat *buffer, char *str, GLuint *index, int amount)
@@ -52,11 +55,25 @@ static void get_values(GLfloat *buffer, char *str, GLuint *index, int amount)
     	buffer[(*index)++] = ft_atof(*values++);
 }
 
-static void		save_obj_f(t_cop *scop, char *obj, GLuint *indices)
+static int		convert_quad(t_cop *scop, GLushort *indices, int i)
+{
+	GLushort swap;
+
+	swap = indices[i - 1];
+	indices[i - 1] = indices[i - 4];
+	indices[i] = indices[i - 2];
+	indices[i + 1] = swap;
+	scop->obj.i_length += 2;
+	// printf("%u ; %u ; %u ; %u ; %u ; %u\n", indices[i - 4], indices[i - 3], indices[i - 2], indices[i - 1], indices[i], indices[i + 1]);
+	return (i + 2);	
+}
+
+static void		save_obj_f(t_cop *scop, char *obj, GLushort *indices)
 {
 	char		**faces;
 	int			primitives;
 	char		**values;
+	char		**face;
 	static int	i;
 
 	faces = ft_strsplit(obj, 'f');
@@ -75,15 +92,26 @@ static void		save_obj_f(t_cop *scop, char *obj, GLuint *indices)
 			scop->points = true;
 		while (*values)
 		{
-			indices[i] = (GLuint)ft_atoi(values[0] - 1);
+			if (scop->obj.vt_length > 0 || scop->obj.vn_length > 0) {
+				face = ft_strsplit(*values, '/');
+				indices[i] = (GLushort)ft_atoi(face[0]) - 1;
+				for (int i = 0; face[i] != NULL; i++)
+					free(face[i]);
+			}
+			else
+				indices[i] = (GLushort)ft_atoi(values[0]) - 1;
 			scop->obj.i_length++;
 			values++;
 			i++;
 		}
 		faces++;
+		if (primitives == 4)
+			i = convert_quad(scop, indices, i);
 	}
 	for (int i = 0; faces[i] != NULL; i++)
 		free(faces[i]);
+	for (int i = 0; values[i] != NULL; i++)
+		free(values[i]);
 }
 
 static void		save_obj(t_cop *scop, char **obj, t_buffer_data *buffer)
@@ -109,16 +137,16 @@ static void		save_obj(t_cop *scop, char **obj, t_buffer_data *buffer)
 		i++;
     }
 	save_obj_f(scop, obj[i - 1], buffer->i);
-	scop->obj.i = (GLuint*)malloc(sizeof(GLuint) * scop->obj.i_length);
-	copy_uints(scop->obj.i, buffer->i, scop->obj.i_length);
+	scop->obj.i = (GLushort*)malloc(sizeof(GLushort) * scop->obj.i_length);
+	copy_ushorts(scop->obj.i, buffer->i, scop->obj.i_length);
 	scop->obj.v = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.v_length);
 	copy_floats(scop->obj.v, buffer->v, scop->obj.v_length);
 	scop->obj.vt = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.vt_length);
 	copy_floats(scop->obj.vt, buffer->vt, scop->obj.vt_length);
 	scop->obj.vn = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.vn_length);
 	copy_floats(scop->obj.vn, buffer->vn, scop->obj.vn_length);
-	for (int i = 0; i < scop->obj.v_length; i++)
-		printf("%f\n", scop->obj.v[i]);
+	for (int i = 0; i < scop->obj.i_length; i += 3)
+		printf("%u ; %u ; %u\n", scop->obj.i[i], scop->obj.i[i + 1], scop->obj.i[i + 2]);
 }
 
 void 				obj_reader(t_cop *scop, char *file)

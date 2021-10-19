@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 17:11:21 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/12 18:47:14 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/19 12:10:15 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ void	render(t_cop *scop)
 		glUseProgram(scop->program_id);
 		
 		// glBindVertexArray(scop->VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, scop->VBO);
+		// glBindBuffer(GL_ARRAY_BUFFER, scop->VBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, scop->IBO);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+		// glEnableVertexAttribArray(0);
+		// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+		glDrawElements(GL_TRIANGLES, scop->obj.i_length, GL_UNSIGNED_SHORT, (void*)0);
 		// glBindBuffer(GL_ARRAY_BUFFER, scop->vt_array_tr);
 		// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  0, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, scop->CBO);
-        glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
+		// glBindBuffer(GL_ARRAY_BUFFER, scop->CBO);
+        // glEnableVertexAttribArray(1);
+		// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), NULL);
 		// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  0, NULL);
-		glDrawElements(GL_TRIANGLES, scop->obj.i_length, GL_UNSIGNED_INT, NULL);
         
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
