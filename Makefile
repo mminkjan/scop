@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/10/19 12:50:16 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/10/20 14:54:19 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ SDL_FLAGS = `sdl2-config --cflags --libs`  -framework OpenGL -lGLEW -I GLEW_INCL
 LIBS = -L $(LIBFT) -lft -lSDL2_mixer $(GLEW_LIB)
 
 SRCS_DIR = srcs/
-SRCS_FILES = main render2 SDL_init get_shaders obj_reader obj_parcer \
-				rotations bmp_reader
+SRCS_FILES = main render2 SDL_init get_shaders obj_reader \
+				rotations bmp_reader transform
 
 C_FILES = $(SCRS_FILES:%=%.c)
 

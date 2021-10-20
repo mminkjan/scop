@@ -6,11 +6,15 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/19 19:36:21 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/20 12:12:06 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/scop.h"
+
+
+//protection
+//duplicated contend in obj file
 
 static int	get_primitive(char *str)
 {
@@ -146,7 +150,9 @@ static void		save_obj(t_cop *scop, char **obj, t_buffer_data *buffer)
 	scop->obj.vn = (GLfloat*)malloc(sizeof(GLfloat) * scop->obj.vn_length);
 	copy_floats(scop->obj.vn, buffer->vn, scop->obj.vn_length);
 	for (int i = 0; i < scop->obj.i_length; i += 3)
-		printf("%u ; %u ; %u\n", scop->obj.i[i], scop->obj.i[i + 1], scop->obj.i[i + 2]);
+		printf("i = %d | %u ; %u ; %u\n",i , scop->obj.i[i], scop->obj.i[i + 1], scop->obj.i[i + 2]);
+	for (int i = 0; i < scop->obj.v_length; i += 3)
+		printf("i = %d | %f ; %f ; %f\n", i, scop->obj.v[i], scop->obj.v[i + 1], scop->obj.v[i + 2]);
 }
 
 void 				obj_reader(t_cop *scop, char *file)

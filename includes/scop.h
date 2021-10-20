@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/19 14:02:45 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/20 14:55:17 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ GLuint 	get_shaders(t_cop *scop);
 void    obj_reader(t_cop *scop, char *file);
 void    file_to_string(t_cop *scop, int fd, const char **file);
 void 	obj_parcer(t_cop *scop,  t_buffer_data *buffer, char *str);
+void	obj_transform(t_cop *scop);
 
 void    load_bmp(t_cop *scop, const char *imagepath);
 
