@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/20 14:55:17 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/22 15:51:59 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 
 # define PI 3.14159265359
 
+# define POSITION 0
+# define ROTATION 1
+# define SCALE 2
+
 # define BUFFER 100000
 
 # define VDUB 10
@@ -44,9 +48,9 @@ typedef struct	s_vec2 {
 }				t_vec2;
 
 typedef struct	s_vec3 {
-	float		x;
-	float		y;
-	float		z;
+	GLfloat		x;
+	GLfloat		y;
+	GLfloat		z;
 }				t_vec3;
 
 typedef struct	s_vec4 {
@@ -91,6 +95,8 @@ typedef struct		s_cop {
 	GLuint			color_buffer2;
 	GLuint			program_id;
 	t_obj			obj;
+	GLfloat			image_asp_ratio;
+	t_vec3			transform[3];
 	bool			running;
 	bool			triangle_fan;
 	bool			line;
