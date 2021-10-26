@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/22 15:51:59 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/26 20:08:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define FALSE	0
 
 # define PI 3.14159265359
+
+# define POV 90
+# define NEAR 0.1
+# define FAR 100
 
 # define POSITION 0
 # define ROTATION 1
@@ -95,6 +99,7 @@ typedef struct		s_cop {
 	GLuint			color_buffer2;
 	GLuint			program_id;
 	t_obj			obj;
+	GLfloat			*proj_m;
 	GLfloat			image_asp_ratio;
 	t_vec3			transform[3];
 	bool			running;
@@ -112,7 +117,7 @@ void    obj_reader(t_cop *scop, char *file);
 void    file_to_string(t_cop *scop, int fd, const char **file);
 void 	obj_parcer(t_cop *scop,  t_buffer_data *buffer, char *str);
 void	obj_transform(t_cop *scop);
-
+void	init_proj_m(t_cop *scop);
 void    load_bmp(t_cop *scop, const char *imagepath);
 
 void	rotation_x(int degree, t_vec3 *position);

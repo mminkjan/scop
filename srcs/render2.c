@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/20 14:53:36 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/26 20:10:23 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
  
 void	gen_object(t_cop *scop)
 {
-	GLfloat		v_edit[scop->obj.v_length];
+	GLfloat		v_projected[scop->obj.v_length];
 	GLfloat		c_buffer[scop->obj.v_length];
-	GLushort	i_buffer[scop->obj.i_length];
     t_vec3		vector;
 	
 	glGenVertexArrays(1, &scop->VAO);
@@ -77,7 +76,6 @@ void	render(t_cop *scop)
 		glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
-		obj_transform(scop);
 		bind_arrays(scop);
 
 		//draw elememts
