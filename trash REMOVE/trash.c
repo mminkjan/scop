@@ -183,3 +183,20 @@ static int		get_obj_vertices(t_cop *scop, const char *obj)
 // 	}
 // 	return (out);
 // }
+t_vec3	perspective_projection(t_cop *scop, t_vec3 in)
+{
+	t_vec3	out;
+	GLfloat	w;
+	
+	out.x   = in.x * scop->proj_m[0]+ in.y * scop->proj_m[4] + in.z * scop->proj_m[8] + /* in.z = 1 */ scop->proj_m[12];
+	out.y   = in.x * scop->proj_m[1] + in.y * scop->proj_m[5] + in.z * scop->proj_m[9] + /* in.z = 1 */ scop->proj_m[13];
+	out.z   = in.x * scop->proj_m[2] + in.y * scop->proj_m[6] + in.z * scop->proj_m[10] + /* in.z = 1 */ scop->proj_m[14];
+	w = in.x * scop->proj_m[3] + in.y * scop->proj_m[7] + in.z * scop->proj_m[11] + /* in.z = 1 */ scop->proj_m[15];
+	if (w != 1)
+	{
+		out.x /= w; 
+        out.y /= w; 
+        out.z /= w; 
+	}
+	return (out);
+}

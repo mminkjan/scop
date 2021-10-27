@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/26 20:10:23 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/27 16:32:28 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	render(t_cop *scop)
 	SDL_Event 	e;
 	
 	gen_object(scop);
+	gen_transform(scop);
 	printf("%u\n", scop->obj.i_length);
 	while (!quit)
 	{
@@ -76,6 +77,10 @@ void	render(t_cop *scop)
 		glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
+		//matrices
+		GLint m_projection = glGetUniformLocation(scop->program_id, "projection");
+		glUniformMatrix4fv(m_projection, 1, GL_FALSE, &scop->projection.mat4[0][0]);
+		
 		bind_arrays(scop);
 
 		//draw elememts

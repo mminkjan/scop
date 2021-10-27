@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/26 20:08:28 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/10/27 17:07:25 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@
 
 # define VDUB 10
 
-typedef struct	s_vec2 {
-	float		x;
-	float		y;
-	float		z;
-}				t_vec2;
+
+typedef struct s_mat {
+	GLfloat		mat4[4][4];
+}				t_mat;
 
 typedef struct	s_vec3 {
 	GLfloat		x;
@@ -57,12 +56,6 @@ typedef struct	s_vec3 {
 	GLfloat		z;
 }				t_vec3;
 
-typedef struct	s_vec4 {
-	int         x;
-	int         y;
-	int         z;
-    int         w;
-}				t_vec4;
 
 typedef struct		s_buffer_data {
 	GLfloat			v[BUFFER];
@@ -102,6 +95,8 @@ typedef struct		s_cop {
 	GLfloat			*proj_m;
 	GLfloat			image_asp_ratio;
 	t_vec3			transform[3];
+	t_mat			projection;
+	GLuint			projection_id;
 	bool			running;
 	bool			triangle_fan;
 	bool			line;
@@ -117,7 +112,8 @@ void    obj_reader(t_cop *scop, char *file);
 void    file_to_string(t_cop *scop, int fd, const char **file);
 void 	obj_parcer(t_cop *scop,  t_buffer_data *buffer, char *str);
 void	obj_transform(t_cop *scop);
-void	init_proj_m(t_cop *scop);
+void	gen_mvp(t_cop *scop);
+t_mat	new_mat4();
 void    load_bmp(t_cop *scop, const char *imagepath);
 
 void	rotation_x(int degree, t_vec3 *position);
