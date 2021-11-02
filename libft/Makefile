@@ -6,7 +6,7 @@
 #    By: mminkjan <mminkjan@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/12 11:46:52 by mminkjan      #+#    #+#                  #
-#    Updated: 2021/09/25 19:48:36 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/11/02 17:48:08 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FTS2 = ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.
 FTS3 = ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c
 BONUS = ft_str_epu.c ft_iswhitespace.c ft_wordcount.c ft_countdigits.c ft_nametag.c \
 		ft_lstaddback.c ft_del.c ft_atoi_base.c ft_has_prefix.c
-ADDS = get_next_line.c ft_atof.c
+ADDS = get_next_line.c ft_atof.c ft_charcount.c ft_cpyfloat.c ft_cpyint.c
 FILES = $(FTS) $(FTS2) $(FTS3) $(BONUS) $(ADDS)
 BIN = $(FTS:.c=.o) $(FTS2:.c=.o) $(FTS3:.c=.o) $(BONUS:.c=.o) $(ADDS:.c=.o)
 FLAGS = -Wall  -Wextra -Werror

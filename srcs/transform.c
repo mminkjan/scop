@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/20 14:16:03 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/10/27 17:08:51 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/02 14:17:59 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_projection(t_cop *scop)
 	t = scale;
 	b = -t;
 
-	scop->projection = new_mat4();
+	// scop->projection = new_mat4();
 	scop->projection.mat4[0][0] = 2 * NEAR / (r - l);
 	scop->projection.mat4[1][1] = 2 * NEAR / (t - b); 
 	scop->projection.mat4[2][0] = (r + l) / (r - l);
@@ -41,9 +41,9 @@ void	get_view(t_cop *scop)
 
 void	gen_mvp(t_cop *scop)
 {
-	get_model(scop);
-	get_view(scop);
-	get_projection(scop);
+	// get_model(scop);
+	// get_view(scop);
+	// get_projection(scop);
 }
 
 

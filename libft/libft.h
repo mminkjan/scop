@@ -6,7 +6,7 @@
 /*   By: jesmith <jesmith@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/14 11:16:37 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/09/25 19:47:59 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/02 17:47:56 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,8 @@ void				ft_lstaddback(t_list **alst, t_list *blst);
 int					get_next_line(const int fd, char **line);
 void				ft_del(void *data, size_t size);
 int					ft_has_prefix(const char *str, int base);
+int					ft_charcount(char *str, int c, int len);
+float				*ft_cpyfloat(float *dest, float *src, int len);
+int					*ft_cpyint(int *dst, int *src, int len);
 
 #endif
