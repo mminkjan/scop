@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 17:51:29 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/02 18:26:49 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ static void get_indices(t_cop *scop, GLushort *buffer, char *str, GLuint *index,
 	values = ft_strsplit(str, ' ');
 	values++;
 	for (int i = 0; i < amount; i++)
-    	buffer[(*index)++] = ft_atoi(*values++) - 1;
+	{
+    	buffer[(*index)++] = ft_atoi(values[i]) - 1;
+	}
 	if (amount == 4)
 	{
 		i = *index;
@@ -64,7 +66,7 @@ static void get_values(GLfloat *buffer, char *str, GLuint *index, int amount)
 	values++;
 	for (int i = 0; i < amount; i++)
 	{
-    	buffer[(*index)++] = ft_atof(*values++);
+    	buffer[(*index)++] = ft_atof(values[i]);
 	}
 }
 
