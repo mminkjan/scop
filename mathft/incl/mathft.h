@@ -16,15 +16,15 @@
 # include <math.h>
 
 typedef struct	s_mat4 {
-	float		m[4][4];
+	float		m[16];
 }				t_mat4;
 
 typedef struct	s_mat3 {
-	float		m[3][3];
+	float		m[9];
 }				t_mat3;
 
 typedef struct	s_mat2 {
-	float		m[2][2];
+	float		m[4];
 }				t_mat2;
 
 typedef struct	s_vec4 {
@@ -50,7 +50,9 @@ t_vec3			vec3_subtract(t_vec3 a, t_vec3 b);
 t_vec3			vec3_cross(t_vec3 a, t_vec3 b);
 double 			vec3_dot(t_vec3 a, t_vec3 b);
 
-t_mat4	LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up);
+t_mat4			LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up);
+t_mat4 			mat4_mutluplication(t_mat4 a, t_mat4 b);
+t_mat4 			new_mat4();
 
 
 
