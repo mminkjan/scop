@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:10:04 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 16:42:31 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include <time.h>
 
 # define WINDOW_NAME "Scop"
-# define WIDTH	1400
-# define HEIGHT 1000
+# define WIDTH	500
+# define HEIGHT 500
 
 # define TRUE	1
 # define FALSE	0

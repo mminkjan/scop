@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/20 14:16:03 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 15:19:30 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 16:58:27 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ t_mat4	get_view(t_cop *scop)
 {
     t_mat4  view;
     
+    scop->cam.pos.x = 0;
+    scop->cam.pos.y = 0;
+    scop->cam.pos.z = 0;
+
+    scop->cam.dir.x = 0;
+    scop->cam.dir.y = 0;
+    scop->cam.dir.z = -1;
+
+    scop->cam.up.x = 0;
+    scop->cam.up.y = 1;
+    scop->cam.up.z = 0;
+    
     view = LookAt(scop->cam.pos, scop->cam.dir, scop->cam.up);
 	return (view);
 }
@@ -67,10 +79,10 @@ void	gen_mvp(t_cop *scop)
     t_mat4  projection;
     t_mat4  mvp;
     
-	get_model(scop);
-	get_view(scop);
-	get_projection(scop);
+	model = get_model(scop);
+	view = get_view(scop);
+	projection = get_projection(scop);
     mvp = mat4_mutluplication(model, view);
     mvp = mat4_mutluplication(mvp, projection);
-    scop->mvp = mvp;
+    scop->mvp = model;
 }
