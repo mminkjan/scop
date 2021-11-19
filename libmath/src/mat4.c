@@ -6,11 +6,11 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:30:38 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/03 16:58:29 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 16:14:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/mathft.h"
+#include "../incl/libmath.h"
 
 
 t_mat4	LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up)
@@ -43,6 +43,16 @@ t_mat4	LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up)
 	return (view);	
 }
 
+t_mat4  mat4_position(t_vec3 postion)
+{
+    t_mat4  new;
+
+    new = new_mat4();
+    new.m[3] = postion.x;
+    new.m[7] = postion.y;
+    new.m[11] = postion.z;
+    return (new);
+}
 
 
 t_mat4	mat4_rotationX(t_mat4 mat, float angle)
@@ -72,27 +82,31 @@ t_mat4	mat4_rotationZ(t_mat4 mat, float angle)
 	return (mat);
 }
 
-t_mat4 mat4_rotation(t_mat4 m, t_vec3 rotation)
+t_mat4 mat4_rotation(t_vec3 rotation)
 {
-	t_mat4 rot;
+	t_mat4 new;
 
+    new = new_mat4();
 	if (rotation.x != 0)
-	{
-		rot = mat4_rotationX(new_mat4(), rotation.x);
-		m = mat4_mutluplication(m, rot);
-	}
+		new = mat4_rotationX(new, rotation.x);
 	if (rotation.y != 0)
-	{
-		rot = mat4_rotationY(new_mat4(), rotation.y);
-		m = mat4_mutluplication(m, rot);
-	}
+		new = mat4_rotationY(new, rotation.y);
 	if (rotation.z != 0)
-	{
-		rot = mat4_rotationZ(new_mat4(), rotation.z);
-		m = mat4_mutluplication(m, rot);
-	}
-	return(m);
+		new = mat4_rotationZ(new, rotation.z);
+	return(new);
 }
+
+t_mat4  mat4_scale(t_vec3 scale)
+{
+    t_mat4  new;
+
+    new = new_mat4();
+    new.m[0] = scale.x;
+    new.m[5] = scale.y;
+    new.m[10] = scale.z;
+    return (new);
+}
+
 t_mat4 mat4_mutluplication(t_mat4 a, t_mat4 b)
 {
 	t_mat4 mult;
@@ -116,7 +130,7 @@ t_mat4 mat4_mutluplication(t_mat4 a, t_mat4 b)
 	return (mult);
 }
 
-t_mat4 new_mat4()
+t_mat4    new_mat4()
 {
 	t_mat4 new;
 
@@ -139,6 +153,5 @@ t_mat4 new_mat4()
 	new.m[13] = 0;
 	new.m[14] = 0;
 	new.m[15] = 1;
-
-	return (new);
+    return (new);
 }

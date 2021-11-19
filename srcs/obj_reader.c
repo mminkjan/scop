@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 18:26:49 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 14:56:04 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ static void get_values(GLfloat *buffer, char *str, GLuint *index, int amount)
 	values = ft_strsplit(str, ' ');
 	values++;
 	for (int i = 0; i < amount; i++)
-	{
     	buffer[(*index)++] = ft_atof(values[i]);
-	}
 }
 
 void 				obj_reader(t_cop *scop, char *file)
@@ -86,7 +84,15 @@ void 				obj_reader(t_cop *scop, char *file)
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[i] == 'v' && line[i + 1] == ' ')
+        {
 			get_values(buffer->v, line, &scop->obj.v_length, 3);
+            if (buffer->v[scop->obj.v_length - 3] < (scop->obj.center.x * 2))
+                scop->obj.center.x = buffer->v[scop->obj.v_length - 3] / 2;
+            if (buffer->v[scop->obj.v_length - 2] < (scop->obj.center.y * 2))
+                scop->obj.center.y = buffer->v[scop->obj.v_length - 2] / 2;
+            if (buffer->v[scop->obj.v_length - 1] < (scop->obj.center.z * 2))
+                scop->obj.center.z = buffer->v[scop->obj.v_length - 1] / 2;
+        }
 		else if (line[i] == 'v' && line[i + 1] == 't')
 			get_values(buffer->vt, line, &scop->obj.vt_length, 2);
 		else if ((line[i] == 'v' && line[i + 1] == 'n'))

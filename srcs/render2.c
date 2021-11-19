@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 18:41:59 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 14:55:21 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	render(t_cop *scop)
 
 		//matrices
 		gen_mvp(scop);
-		GLint m_projection = glGetUniformLocation(scop->program_id, "projection");
-		glUniformMatrix4fv(m_projection, 1, GL_FALSE, scop->projection.mat4[0]);
+		GLint mvp = glGetUniformLocation(scop->program_id, "mvp");
+		glUniformMatrix4fv(mvp, 1, GL_FALSE, scop->mvp.m);
 		
 		bind_arrays(scop);
 

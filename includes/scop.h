@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 18:43:10 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 16:10:04 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../sdl/includes/SDL_opengl.h"
 
 # include "../libft/libft.h"
-# include "../mathft/incl/mathft.h"
+# include "../libmath/incl/libmath.h"
 
 # include <unistd.h>
 # include <stdint.h>
@@ -52,6 +52,7 @@ typedef struct		s_buffer_data {
 	GLfloat			vt[BUFFER]; 
 	GLfloat			vn[BUFFER];
 	GLushort		i[BUFFER];
+    t_vec3          min_values;
 }					t_buffer_data;
 
 typedef struct		s_obj {
@@ -63,8 +64,15 @@ typedef struct		s_obj {
 	GLuint			vn_length;
     GLushort		*i;
 	GLuint			i_length;
+    t_vec3          center;
 
 }					t_obj;
+
+typedef struct      s_camera {
+    t_vec3          pos;
+    t_vec3          dir;
+    t_vec3          up;
+}                   t_camera;
 
 typedef struct		s_cop {
 	SDL_Window		*window;
@@ -85,7 +93,8 @@ typedef struct		s_cop {
 	GLfloat			*proj_m;
 	GLfloat			image_asp_ratio;
 	t_vec3			transform[3];
-	t_mat4			projection;
+    t_mat4          mvp;
+    t_camera        cam;
 	GLuint			projection_id;
 	bool			running;
 	bool			triangle_fan;
@@ -103,7 +112,6 @@ void    file_to_string(t_cop *scop, int fd, const char **file);
 void 	obj_parcer(t_cop *scop,  t_buffer_data *buffer, char *str);
 void	obj_transform(t_cop *scop);
 void	gen_mvp(t_cop *scop);
-t_mat4	new_mat4();
 void    load_bmp(t_cop *scop, const char *imagepath);
 
 void	rotation_x(int degree, t_vec3 *position);

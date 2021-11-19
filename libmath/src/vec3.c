@@ -6,11 +6,11 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:11:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 20:23:51 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/19 16:14:50 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/mathft.h"
+#include "../incl/libmath.h"
 
 double	vec3_magnitude(t_vec3 v)
 {
