@@ -51,7 +51,7 @@ t_vec3			vec3_cross(t_vec3 a, t_vec3 b);
 double 			vec3_dot(t_vec3 a, t_vec3 b);
 
 t_mat4			LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up);
-t_mat4 			mat4_mutluplication(t_mat4 a, t_mat4 b);
+t_mat4 			mat4_mutliplication(t_mat4 a, t_mat4 b);
 t_mat4 			new_mat4();
 t_mat4          mat4_position(t_vec3 postion);
 t_mat4          mat4_rotation(t_vec3 rotation);

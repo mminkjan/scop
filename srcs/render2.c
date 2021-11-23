@@ -6,27 +6,12 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:58:33 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/23 18:11:11 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-void    gen_transform(t_cop *scop)
-{
-    scop->transform[0].x = 0;
-    scop->transform[0].y = 0;
-    scop->transform[0].z = -4;
-
-    scop->transform[1].x = 0;
-    scop->transform[1].y = 0;
-    scop->transform[1].z = 0;
-
-    scop->transform[2].x = 1;
-    scop->transform[2].y = 1;
-    scop->transform[2].z = 1;
-}
- 
 void	gen_object(t_cop *scop)
 {
 	GLfloat		v_projected[scop->obj.v_length];
@@ -81,11 +66,15 @@ void	render(t_cop *scop)
 	bool quit = false;
 	SDL_Event 	e;
 	
-	gen_object(scop);
-	gen_transform(scop);
-	// printf("%u\n", scop->obj.i_length);
 	while (!quit)
 	{
+		while (SDL_PollEvent(&e))
+		{
+        	if (e.type == SDL_QUIT)
+            	quit = true;
+			handle_events(scop, e);
+        }
+		
 		//set environmemt
 		glUseProgram(scop->program_id);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -94,8 +83,6 @@ void	render(t_cop *scop)
 
 		//matrices
 		gen_mvp(scop);
-		GLint mvp = glGetUniformLocation(scop->program_id, "mvp");
-		glUniformMatrix4fv(mvp, 1, GL_FALSE, scop->mvp.m);
 		
 		bind_arrays(scop);
 
@@ -106,10 +93,5 @@ void	render(t_cop *scop)
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		SDL_GL_SwapWindow(scop->window);
-		while (SDL_PollEvent(&e))
-		{
-        	if (e.type == SDL_QUIT)
-            	quit = true;
-        }
 	}
 }

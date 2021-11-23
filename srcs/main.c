@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/02 17:50:47 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/23 18:11:17 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		main(int argc, char **argv)
     get_shaders(&scop);
 	// init_proj_m(&scop);
     obj_reader(&scop, "resources/models/42.obj");
+	gen_object(&scop);
+	init_scene(&scop);
 	render(&scop);
 	return (0);
 }

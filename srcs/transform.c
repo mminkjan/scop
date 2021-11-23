@@ -6,53 +6,17 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/20 14:16:03 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:58:27 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/23 18:18:03 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
-t_mat4	get_projection(t_cop *scop)
-{
-	GLfloat	r, l;
-	GLfloat	t, b;
-	GLfloat	scale;
-    t_mat4  projection;
-
-	scale = tan(POV * 0.5 * PI / 180) * NEAR; 
-	r = scop->image_asp_ratio * scale;
-	l = -r;
-	t = scale;
-	b = -t;
-
-	projection = new_mat4();
-	projection.m[0] = 2 * NEAR / (r - l);
-	projection.m[5] = 2 * NEAR / (t - b); 
-	projection.m[8] = (r + l) / (r - l);
-	projection.m[9] = (t + b) / (t - b);
-	projection.m[10] = -(FAR + NEAR) / (FAR - NEAR);
-	projection.m[11] = -1;
-	projection.m[14] = -2 * FAR * NEAR / (FAR - NEAR);
-    return (projection);
-}
-
 t_mat4	get_view(t_cop *scop)
 {
     t_mat4  view;
-    
-    scop->cam.pos.x = 0;
-    scop->cam.pos.y = 0;
-    scop->cam.pos.z = 0;
 
-    scop->cam.dir.x = 0;
-    scop->cam.dir.y = 0;
-    scop->cam.dir.z = -1;
-
-    scop->cam.up.x = 0;
-    scop->cam.up.y = 1;
-    scop->cam.up.z = 0;
-    
-    view = LookAt(scop->cam.pos, scop->cam.dir, scop->cam.up);
+    view = LookAt(scop->camera.position, scop->camera.direction, scop->camera.up);
 	return (view);
 }
 
@@ -67,8 +31,8 @@ t_mat4  get_model(t_cop *scop)
     position = mat4_position(scop->transform[0]);
     rotation = mat4_rotation(scop->transform[1]);
     scale = mat4_scale(scop->transform[2]);
-    model = mat4_mutluplication(position, rotation);
-    model = mat4_mutluplication(model, scale);
+    model = mat4_mutliplication(position, rotation);
+    model = mat4_mutliplication(model, scale);
     return (model);
 }
 
@@ -81,8 +45,8 @@ void	gen_mvp(t_cop *scop)
     
 	model = get_model(scop);
 	view = get_view(scop);
-	projection = get_projection(scop);
-    mvp = mat4_mutluplication(model, view);
-    mvp = mat4_mutluplication(mvp, projection);
-    scop->mvp = model;
+    mvp = mat4_mutliplication(model, view);
+    mvp = mat4_mutliplication(mvp, scop->camera.projection);
+	GLint mvp_i = glGetUniformLocation(scop->program_id, "mvp");
+	glUniformMatrix4fv(mvp_i, 1, GL_FALSE, mvp.m);
 }

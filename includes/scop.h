@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:42:31 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/23 17:47:39 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ typedef struct		s_obj {
 }					t_obj;
 
 typedef struct      s_camera {
-    t_vec3          pos;
-    t_vec3          dir;
+    t_vec3          position;
+    t_vec3          direction;
     t_vec3          up;
+	t_mat4			projection;
 }                   t_camera;
 
 typedef struct		s_cop {
@@ -94,7 +95,7 @@ typedef struct		s_cop {
 	GLfloat			image_asp_ratio;
 	t_vec3			transform[3];
     t_mat4          mvp;
-    t_camera        cam;
+    t_camera        camera;
 	GLuint			projection_id;
 	bool			running;
 	bool			triangle_fan;
@@ -111,8 +112,11 @@ void    obj_reader(t_cop *scop, char *file);
 void    file_to_string(t_cop *scop, int fd, const char **file);
 void 	obj_parcer(t_cop *scop,  t_buffer_data *buffer, char *str);
 void	obj_transform(t_cop *scop);
-void	gen_mvp(t_cop *scop);
 void    load_bmp(t_cop *scop, const char *imagepath);
+void	gen_object(t_cop *scop);
+void	init_scene(t_cop *scop);
+void	handle_events(t_cop *scop, SDL_Event e);
+void	gen_mvp(t_cop *scop);
 
 void	rotation_x(int degree, t_vec3 *position);
 void	rotation_y(int degree, t_vec3 *position);

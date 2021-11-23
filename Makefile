@@ -6,7 +6,7 @@
 #    By: jesmith <jesmith@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/28 15:14:36 by jesmith       #+#    #+#                  #
-#    Updated: 2021/11/19 16:39:26 by mminkjan      ########   odam.nl          #
+#    Updated: 2021/11/23 17:44:59 by mminkjan      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBS = -L $(LIBFT) -lft -L $(LIBMATH) -I $(LIBMATH_INCL) -lmath -lSDL2_mixer
 
 SRCS_DIR = srcs/
 SRCS_FILES = main render2 SDL_init get_shaders obj_reader \
-				rotations bmp_reader transform
+				rotations bmp_reader transform init_scene events
 
 C_FILES = $(SCRS_FILES:%=%.c)
 

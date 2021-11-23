@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:30:38 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:14:41 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/23 18:17:25 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_mat4  mat4_scale(t_vec3 scale)
     return (new);
 }
 
-t_mat4 mat4_mutluplication(t_mat4 a, t_mat4 b)
+t_mat4 mat4_mutliplication(t_mat4 a, t_mat4 b)
 {
 	t_mat4 mult;
 	
