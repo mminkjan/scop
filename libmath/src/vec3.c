@@ -6,11 +6,19 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:11:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 16:14:50 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 15:04:38 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/libmath.h"
+
+t_vec3	vec3_negate(t_vec3 v)
+{
+	v.x = -v.x;
+	v.y = -v.y;
+	v.z = -v.z;
+	return (v);
+}
 
 double	vec3_magnitude(t_vec3 v)
 {

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/23 18:11:11 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 16:33:45 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	render(t_cop *scop)
 	
 	while (!quit)
 	{
+		scop->events.mouse_state = SDL_GetMouseState(&scop->events.cursor_x, &scop->events.cursor_y);
 		while (SDL_PollEvent(&e))
 		{
         	if (e.type == SDL_QUIT)
@@ -80,6 +81,7 @@ void	render(t_cop *scop)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
+		glClearColor((151./255.),(202./255.),(239./255.),0);
 
 		//matrices
 		gen_mvp(scop);

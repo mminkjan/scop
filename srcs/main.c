@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:42:36 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/23 18:11:17 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 15:31:25 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int argc, char **argv)
 	SDL_GL_init(&scop);
     get_shaders(&scop);
 	// init_proj_m(&scop);
-    obj_reader(&scop, "resources/models/42.obj");
+    obj_reader(&scop, "resources/models/cube.obj");
 	gen_object(&scop);
 	init_scene(&scop);
 	render(&scop);

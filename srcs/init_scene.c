@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/23 16:41:23 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/23 18:14:51 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 17:18:06 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_projection(t_cop *scop)
     t_mat4  projection;
 
 	scale = tan(POV * 0.5 * PI / 180) * NEAR; 
-	r = scop->image_asp_ratio * scale;
+	r = (WIDTH / HEIGHT) * scale;
 	l = -r;
 	t = scale;
 	b = -t;
@@ -41,11 +41,11 @@ void	init_view(t_cop *scop)
     
     scop->camera.position.x = 0;
     scop->camera.position.y = 0;
-    scop->camera.position.z = 0;
+    scop->camera.position.z = 3;
 
     scop->camera.direction.x = 0;
     scop->camera.direction.y = 0;
-    scop->camera.direction.z = -1;
+    scop->camera.direction.z = 0;
 
     scop->camera.up.x = 0;
     scop->camera.up.y = 1;
@@ -59,12 +59,12 @@ void	init_model(t_cop *scop)
     scop->transform[0].z = 0;
 
     scop->transform[1].x = 0;
-    scop->transform[1].y = 90;
+    scop->transform[1].y = 0;
     scop->transform[1].z = 0;
 
-    scop->transform[2].x = 1;
-    scop->transform[2].y = 1;
-    scop->transform[2].z = 1;
+    scop->transform[2].x = 0.2;
+    scop->transform[2].y = 0.2;
+    scop->transform[2].z = 0.2;	
 }
 
 void init_scene(t_cop *scop)

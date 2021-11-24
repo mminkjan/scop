@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/23 17:47:39 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 16:16:23 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@
 
 # define VDUB 10
 
+typedef struct		s_events {
+	Uint32			mouse_state;
+	int				cursor_x;
+	int				cursor_y;
+}					t_events;
+
 typedef struct		s_buffer_data {
 	GLfloat			v[BUFFER];
 	GLfloat			vt[BUFFER]; 
@@ -73,6 +79,7 @@ typedef struct      s_camera {
     t_vec3          direction;
     t_vec3          up;
 	t_mat4			projection;
+	GLfloat			image_asp_ratio;
 }                   t_camera;
 
 typedef struct		s_cop {
@@ -84,23 +91,13 @@ typedef struct		s_cop {
 	GLuint			VBO;
 	GLuint			IBO;
 	GLuint			CBO;
-	GLuint			vt_array_qd;
-	GLuint			triangles_buffer;
-	GLuint			quads_buffer;
-    GLuint			color_buffer1;
-	GLuint			color_buffer2;
 	GLuint			program_id;
 	t_obj			obj;
-	GLfloat			*proj_m;
-	GLfloat			image_asp_ratio;
 	t_vec3			transform[3];
     t_mat4          mvp;
     t_camera        camera;
-	GLuint			projection_id;
+	t_events 		events;
 	bool			running;
-	bool			triangle_fan;
-	bool			line;
-	bool			points;
 }					t_cop;
 
 // int 	main(void);

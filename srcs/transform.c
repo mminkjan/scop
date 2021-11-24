@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/20 14:16:03 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/23 18:18:03 by mminkjan      ########   odam.nl         */
+/*   Updated: 2021/11/24 16:39:22 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_mat4	get_view(t_cop *scop)
     t_mat4  view;
 
     view = LookAt(scop->camera.position, scop->camera.direction, scop->camera.up);
+	printf("%f - %f - %f - %f\n %f - %f - %f - %f\n %f - %f - %f - %f\n %f - %f - %f - %f\n\n", 
+		view.m[0], view.m[1], view.m[2], view.m[3], 
+		view.m[4], view.m[5], view.m[6], view.m[7], 
+		view.m[8],view.m[9] ,view.m[10], view.m[11], 
+		view.m[12], view.m[13], view.m[14], view.m[15]);
 	return (view);
 }
 
