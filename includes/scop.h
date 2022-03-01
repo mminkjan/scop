@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/24 16:16:23 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/01 18:15:22 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct      s_camera {
     t_vec3          up;
 	t_mat4			projection;
 	GLfloat			image_asp_ratio;
+	float			speed; 
 }                   t_camera;
 
 typedef struct		s_cop {
@@ -112,7 +113,7 @@ void	obj_transform(t_cop *scop);
 void    load_bmp(t_cop *scop, const char *imagepath);
 void	gen_object(t_cop *scop);
 void	init_scene(t_cop *scop);
-void	handle_events(t_cop *scop, SDL_Event e);
+void	handle_events(t_cop *scop, SDL_Event e, double dt);
 void	gen_mvp(t_cop *scop);
 
 void	rotation_x(int degree, t_vec3 *position);

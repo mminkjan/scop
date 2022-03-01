@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:30:38 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/24 17:21:00 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/01 18:50:11 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,60 @@ t_mat4	LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up)
 	t_mat4	translate;
 	t_mat4	rotate;
 
-	axisZ = vec3_normalize(vec3_subtract(dir,cam));
-	axisX = vec3_normalize(vec3_cross(axisZ, up));
-	axisY = vec3_cross(axisX, axisZ);
-
-	translate = new_mat4();
-	translate.m[0] = axisX.x;
-	translate.m[1] = axisY.x;
-	translate.m[2] = axisZ.x;
-
-	translate.m[4] = axisX.y;
-	translate.m[5] = axisY.y;
-	translate.m[6] = axisZ.y;
-
-	translate.m[8] = axisX.z;
-	translate.m[9] = axisY.z;
-	translate.m[10] = axisZ.z;
-
-	rotate = new_mat4();
-	rotate.m[3] = -cam.x;
-	rotate.m[7] = -cam.y;
-	rotate.m[11] = -cam.z;
-
-	return (mat4_mutliplication(translate, rotate));	
-}
-
-t_mat4 LookAt2(t_vec3 cam, t_vec3 dir, t_vec3 up)
-{
-	t_vec3	axisX;
-	t_vec3	axisY;
-	t_vec3	axisZ;
-	t_mat4	view;
-
-	axisZ = vec3_normalize(vec3_subtract(dir,cam));
-	axisX = vec3_normalize(vec3_cross(up, axisZ));
+	axisZ = vec3_normalize(vec3_subtract(cam, dir));
+	axisX = vec3_normalize(vec3_cross(vec3_normalize(up), axisZ));
 	axisY = vec3_cross(axisZ, axisX);
 
-	view.m[0] = axisX.x;
-	view.m[1] = axisY.x;
-	view.m[2] = axisZ.x;
-	view.m[4] = axisX.y;
-	view.m[5] = axisY.y;
-	view.m[6] = axisZ.z;
-	view.m[8] = axisX.z;
-	view.m[9] = axisY.z;
-	view.m[10] = axisZ.z;;
-	view.m[12] = -vec3_dot(axisX, cam);
-	view.m[13] = -vec3_dot(axisY, cam);
-	view.m[14] = -vec3_dot(axisZ, cam);
-	return (view);
+	translate = new_mat4();
+	translate.m[12] = -cam.x;
+	translate.m[13] = -cam.y;
+	translate.m[14] = -cam.z;
+
+	rotate = new_mat4();
+	rotate.m[0] = axisX.x;
+	rotate.m[4] = axisX.y;
+	rotate.m[8] = axisX.z;
+
+	rotate.m[1] = axisY.x;
+	rotate.m[5] = axisY.y;
+	rotate.m[9] = axisY.z;
+
+	rotate.m[2] = axisZ.x;
+	rotate.m[6] = axisZ.y;
+	rotate.m[10] = axisZ.z;
+
+	return (mat4_mutliplication(rotate, translate));	
 }
+
+// t_mat4 LookAt2(t_vec3 cam, t_vec3 dir, t_vec3 up)
+// {
+// 	t_vec3	axisX;
+// 	t_vec3	axisY;
+// 	t_vec3	axisZ;
+// 	t_mat4	view;
+// 	t_mat4	translation;
+// 	t_mat4	rotation;
+
+// 	axisZ = vec3_normalize(vec3_subtract(dir,cam));
+// 	axisX = vec3_normalize(vec3_cross(up, axisZ));
+// 	axisY = vec3_cross(axisZ, axisX);
+
+// 	translation = new_mat4();
+// 	translation[]
+// 	view.m[0] = axisX.x;
+// 	view.m[1] = axisY.x;
+// 	view.m[2] = axisZ.x;
+// 	view.m[4] = axisX.y;
+// 	view.m[5] = axisY.y;
+// 	view.m[6] = axisZ.z;
+// 	view.m[8] = axisX.z;
+// 	view.m[9] = axisY.z;
+// 	view.m[10] = axisZ.z;;
+// 	view.m[12] = -vec3_dot(axisX, cam);
+// 	view.m[13] = -vec3_dot(axisY, cam);
+// 	view.m[14] = -vec3_dot(axisZ, cam);
+// 	return (view);
+// }
 
 t_mat4  mat4_position(t_vec3 postion)
 {

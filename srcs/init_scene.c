@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/23 16:41:23 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/24 17:18:06 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/01 18:04:47 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_view(t_cop *scop)
 
     scop->camera.direction.x = 0;
     scop->camera.direction.y = 0;
-    scop->camera.direction.z = 0;
+    scop->camera.direction.z = -1;
 
     scop->camera.up.x = 0;
     scop->camera.up.y = 1;
@@ -62,9 +62,9 @@ void	init_model(t_cop *scop)
     scop->transform[1].y = 0;
     scop->transform[1].z = 0;
 
-    scop->transform[2].x = 0.2;
-    scop->transform[2].y = 0.2;
-    scop->transform[2].z = 0.2;	
+    scop->transform[2].x = 0.5;
+    scop->transform[2].y = 0.5;
+    scop->transform[2].z = 0.5;	
 }
 
 void init_scene(t_cop *scop)
@@ -72,5 +72,6 @@ void init_scene(t_cop *scop)
 	init_projection(scop);
 	init_view(scop);
 	init_model(scop);
+	scop->camera.speed = 10;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:10:39 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/24 16:33:45 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/01 18:15:04 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,36 @@ static void bind_arrays(t_cop *scop)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, scop->IBO);
 }
 
+double		get_timeframe(long *last_frame_time)
+{
+	struct timespec t;
+	double			dt;
+
+	clock_gettime(CLOCK_MONOTONIC_RAW, &t);
+	dt = t.tv_nsec - *last_frame_time;
+	dt /= round(1.0e9);
+	if (dt < 0)
+		dt = 0;
+	*last_frame_time = t.tv_nsec;
+	return (dt);
+}
+
 void	render(t_cop *scop)
 {
 	bool quit = false;
 	SDL_Event 	e;
+	double		dt;
+	long		last_time = 0;
 	
 	while (!quit)
 	{
 		scop->events.mouse_state = SDL_GetMouseState(&scop->events.cursor_x, &scop->events.cursor_y);
+		dt = get_timeframe(&last_time);
 		while (SDL_PollEvent(&e))
 		{
         	if (e.type == SDL_QUIT)
             	quit = true;
-			handle_events(scop, e);
+			handle_events(scop, e, dt);
         }
 		
 		//set environmemt

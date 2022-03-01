@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2021/11/19 14:56:04 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/01 15:40:14 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ static void save_obj(t_cop *scop, t_buffer_data	*buffer)
 	scop->obj.vn = (GLfloat*)ft_cpyfloat(scop->obj.vn, buffer->vn, scop->obj.vn_length);
 }
 
+static void		set_center_v(t_cop *scop, GLfloat *buffer)
+{
+	t_vec3		min;
+	t_vec3		max;
+
+	min = vec3_new(buffer[0], buffer[1], buffer[2]);
+	max = vec3_new(buffer[0], buffer[1], buffer[2]);
+	for (int i = 0; i < scop->obj.v_length; i += 3)
+	{
+		min.x = buffer[i] < min.x ? buffer[i] : min.x;
+		max.x = buffer[i] > max.x ? buffer[i] : max.x;
+		min.y = buffer[i + 1] < min.y ? buffer[i + 1] : min.y;
+		max.y = buffer[i + 1] > max.y ? buffer[i + 1] : max.y;
+		min.z = buffer[i + 2] < min.z ? buffer[i + 2] : min.z;
+		max.z = buffer[i + 2] > max.z ? buffer[i + 2] : max.z;
+	}
+	scop->obj.center = vec3_dot_f(vec3_add(min, max), 0.5);
+}
 
 static void get_indices(t_cop *scop, GLushort *buffer, char *str, GLuint *index, int amount)
 {
@@ -84,15 +102,7 @@ void 				obj_reader(t_cop *scop, char *file)
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[i] == 'v' && line[i + 1] == ' ')
-        {
 			get_values(buffer->v, line, &scop->obj.v_length, 3);
-            if (buffer->v[scop->obj.v_length - 3] < (scop->obj.center.x * 2))
-                scop->obj.center.x = buffer->v[scop->obj.v_length - 3] / 2;
-            if (buffer->v[scop->obj.v_length - 2] < (scop->obj.center.y * 2))
-                scop->obj.center.y = buffer->v[scop->obj.v_length - 2] / 2;
-            if (buffer->v[scop->obj.v_length - 1] < (scop->obj.center.z * 2))
-                scop->obj.center.z = buffer->v[scop->obj.v_length - 1] / 2;
-        }
 		else if (line[i] == 'v' && line[i + 1] == 't')
 			get_values(buffer->vt, line, &scop->obj.vt_length, 2);
 		else if ((line[i] == 'v' && line[i + 1] == 'n'))
@@ -101,6 +111,7 @@ void 				obj_reader(t_cop *scop, char *file)
 			get_indices(scop, buffer->i, line, &scop->obj.i_length, ft_charcount(line, (int)' ', ft_strlen(line)));
 		free(line);
 	}
+	set_center_v(scop, buffer->v);
 	save_obj(scop, buffer);
     close(fd);
 }

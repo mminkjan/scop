@@ -46,10 +46,13 @@ typedef struct	s_vec2 {
 
 double			vec3_magnitude(t_vec3 v);
 t_vec3			vec3_normalize(t_vec3 v);
+t_vec3			vec3_add(t_vec3 a, t_vec3 b);
 t_vec3			vec3_subtract(t_vec3 a, t_vec3 b);
 t_vec3			vec3_cross(t_vec3 a, t_vec3 b);
+t_vec3			vec3_dot_f(t_vec3 v, float f);
 double 			vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3			vec3_negate(t_vec3 v);
+t_vec3			vec3_new(float x, float y, float z);
 
 t_mat4			LookAt(t_vec3 cam, t_vec3 dir, t_vec3 up);
 t_mat4 			mat4_mutliplication(t_mat4 a, t_mat4 b);
