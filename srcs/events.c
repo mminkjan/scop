@@ -6,18 +6,28 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/23 17:20:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/01 19:53:05 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/08 12:46:09 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/scop.h"
 
+static void rotate_object(t_cop *scop, int delta_x, int delta_y, double dt)
+{
+    int degrees;
+    
+    if (delta_x != 0)
+    {
+        degrees = (scop->transform[1].y * (PI / 180)) + (delta_x / 10);
+        scop->transform[1].y = (degrees % 360) / (PI / 180);
+    }
+}
+
 static void zoom_camera(t_cop *scop, int key, double dt)
 {
-	printf("sukkel\n");
-	if (key == 61)
+	if (key == SDLK_i)
 		scop->camera.position = vec3_add(vec3_dot_f(scop->camera.direction, scop->camera.speed * dt), scop->camera.position);
-	if (key == 45)
+	if (key == SDLK_o)
 		scop->camera.position = vec3_subtract(scop->camera.position, vec3_dot_f(scop->camera.direction, scop->camera.speed * dt));
 }
 
@@ -38,12 +48,11 @@ void	handle_events(t_cop *scop, SDL_Event e, double dt)
 {
 	Uint32 mouse;
 
-	printf("%d\n", e.key.keysym.sym);
+	if (e.key.keysym.sym == SDLK_i || e.key.keysym.sym == SDLK_o)
+		zoom_camera(scop, e.key.keysym.sym, dt);
 	if (e.key.keysym.sym == SDLK_w || e.key.keysym.sym == SDLK_a || 
 		e.key.keysym.sym == SDLK_s || e.key.keysym.sym == SDLK_d)
 		move_camera(scop, e.key.keysym.sym, dt);
 	if ((scop->events.mouse_state & SDL_BUTTON_LMASK) != 0) 
-		// printf("mouse button left %d - %d\n", scop->events.cursor_x, scop->events.cursor_y);
-	if (e.key.keysym.sym == 61 || e.key.keysym.sym == 45)
-		zoom_camera(scop, e.key.keysym.sym, dt);
+        rotate_object(scop, e.motion.xrel, e.motion.yrel, dt);
 }

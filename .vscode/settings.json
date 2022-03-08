@@ -1,6 +1,7 @@
 {
 	"editor.detectIndentation": false,
 	"files.associations": {
-		"numbers": "c"
-	}
+        "numbers": "c",
+        "__locale": "c"
+    }
 }
