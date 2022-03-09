@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/27 13:26:34 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/01 15:40:14 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 15:08:44 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void save_obj(t_cop *scop, t_buffer_data	*buffer)
 	scop->obj.vn = (GLfloat*)ft_cpyfloat(scop->obj.vn, buffer->vn, scop->obj.vn_length);
 }
 
-static void		set_center_v(t_cop *scop, GLfloat *buffer)
+static void		set_pivot(t_cop *scop, GLfloat *buffer)
 {
 	t_vec3		min;
 	t_vec3		max;
@@ -48,7 +48,7 @@ static void		set_center_v(t_cop *scop, GLfloat *buffer)
 		min.z = buffer[i + 2] < min.z ? buffer[i + 2] : min.z;
 		max.z = buffer[i + 2] > max.z ? buffer[i + 2] : max.z;
 	}
-	scop->obj.center = vec3_dot_f(vec3_add(min, max), 0.5);
+	scop->obj.pivot = vec3_dot_f(vec3_add(min, max), 0.5);
 }
 
 static void get_indices(t_cop *scop, GLushort *buffer, char *str, GLuint *index, int amount)
@@ -111,7 +111,7 @@ void 				obj_reader(t_cop *scop, char *file)
 			get_indices(scop, buffer->i, line, &scop->obj.i_length, ft_charcount(line, (int)' ', ft_strlen(line)));
 		free(line);
 	}
-	set_center_v(scop, buffer->v);
+	set_pivot(scop, buffer->v);
 	save_obj(scop, buffer);
     close(fd);
 }

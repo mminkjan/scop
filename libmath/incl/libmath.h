@@ -15,6 +15,9 @@
 
 # include <math.h>
 
+# define RAD_MAX 6.283185
+# define PI 3.141593
+
 typedef struct	s_mat4 {
 	float		m[16];
 }				t_mat4;

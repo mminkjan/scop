@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/23 17:20:24 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/08 12:46:09 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 16:48:41 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 static void rotate_object(t_cop *scop, int delta_x, int delta_y, double dt)
 {
-    int degrees;
-    
-    if (delta_x != 0)
+	float	rotation;
+
+    if (delta_x != 0 && delta_x <= 100)
     {
-        degrees = (scop->transform[1].y * (PI / 180)) + (delta_x / 10);
-        scop->transform[1].y = (degrees % 360) / (PI / 180);
+        rotation = (scop->transform[1].y - (delta_x * VELOCITY * dt) * (PI / 180));
+		rotation = rotation > RAD_MAX ? (float)remainder(rotation, RAD_MAX) : rotation;
+		rotation = rotation < 0 ? (RAD_MAX + rotation) : rotation;
+		scop->transform[1].y = rotation;
+    }
+	if (delta_y != 0 && delta_y <= 100)
+    {
+        rotation = (scop->transform[1].x - (delta_y * VELOCITY * dt) * (PI / 180));
+		rotation = rotation > RAD_MAX ? (float)remainder(rotation, RAD_MAX) : rotation;
+		rotation = rotation < 0 ? (RAD_MAX + rotation) : rotation;
+		scop->transform[1].x = rotation;
     }
 }
 
@@ -35,9 +44,9 @@ static void	move_camera(t_cop *scop, int key, double dt)
 {
 
 	if (key == SDLK_w)
-		scop->camera.position = vec3_add(vec3_dot_f(scop->camera.up, scop->camera.speed * dt), scop->camera.position);
+		scop->camera.position = vec3_add(vec3_dot_f(scop->camera.direction, scop->camera.speed * dt), scop->camera.position);
 	if (key == SDLK_s)
-		scop->camera.position = vec3_subtract(scop->camera.position, vec3_dot_f(scop->camera.up, scop->camera.speed * dt));
+		scop->camera.position = vec3_subtract(scop->camera.position, vec3_dot_f(scop->camera.direction, scop->camera.speed * dt));
 	if (key == SDLK_d)
 		scop->camera.position = vec3_add(vec3_dot_f(vec3_normalize(vec3_cross(scop->camera.direction, scop->camera.up)),  scop->camera.speed * dt), scop->camera.position);
 	if (key == SDLK_a)

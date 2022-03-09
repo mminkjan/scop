@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:30:38 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/01 18:53:44 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 16:18:56 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,24 @@ t_mat4	mat4_rotationZ(t_mat4 mat, float angle)
 
 t_mat4 mat4_rotation(t_vec3 rotation)
 {
-	t_mat4 new;
+	t_mat4 rot_x;
+	t_mat4 rot_y;
+	t_mat4 rot_z;
+	t_mat4 combined;
 
-    new = new_mat4();
+    rot_x = new_mat4();
+	rot_y = new_mat4();
+	rot_z = new_mat4();
+
 	if (rotation.x != 0)
-		new = mat4_rotationX(new, rotation.x);
+		rot_x = mat4_rotationX(rot_x, rotation.x);
 	if (rotation.y != 0)
-		new = mat4_rotationY(new, rotation.y);
+		rot_y = mat4_rotationY(rot_y, rotation.y);
 	if (rotation.z != 0)
-		new = mat4_rotationZ(new, rotation.z);
-	return(new);
+		rot_z = mat4_rotationZ(rot_z, rotation.z);
+	combined = mat4_mutliplication(rot_x, rot_y);
+	combined = mat4_mutliplication(combined, rot_z);
+	return(combined);
 }
 
 t_mat4  mat4_scale(t_vec3 scale)

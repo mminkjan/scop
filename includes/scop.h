@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/01 18:15:22 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 15:08:17 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define TRUE	1
 # define FALSE	0
 
-# define PI 3.14159265359
-
 # define POV 90
 # define NEAR 0.1
 # define FAR 100
@@ -42,6 +40,8 @@
 # define POSITION 0
 # define ROTATION 1
 # define SCALE 2
+
+# define VELOCITY 10
 
 # define BUFFER 100000
 
@@ -70,7 +70,7 @@ typedef struct		s_obj {
 	GLuint			vn_length;
     GLushort		*i;
 	GLuint			i_length;
-    t_vec3          center;
+    t_vec3          pivot;
 
 }					t_obj;
 

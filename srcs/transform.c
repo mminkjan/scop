@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/20 14:16:03 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/01 18:53:28 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 16:50:11 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ t_mat4  get_model(t_cop *scop)
     t_mat4  rotation;
     t_mat4  scale;
     t_mat4  model;
+	t_vec3	pivot;
 
-    model = new_mat4();
-    position = mat4_position(scop->transform[0]);
+    model = new_mat4();	
     rotation = mat4_rotation(scop->transform[1]);
     scale = mat4_scale(scop->transform[2]);
+	position = mat4_position(scop->transform[0]);
     model = mat4_mutliplication(position, rotation);
     model = mat4_mutliplication(model, scale);
     return (model);
