@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/23 16:41:23 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/09 16:39:31 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/09 16:54:42 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void	init_view(t_cop *scop)
 
 static void	init_object(t_cop *scop)
 {
-    scop->transform[0].x = 0;
-    scop->transform[0].y = 0;
-    scop->transform[0].z = 0;
+    scop->transform[0].x = -scop->obj.pivot.x;
+    scop->transform[0].y = -scop->obj.pivot.y;
+    scop->transform[0].z = -scop->obj.pivot.z;
 
     scop->transform[1].x = 0;
     scop->transform[1].y = 0;
