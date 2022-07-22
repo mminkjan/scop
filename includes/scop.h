@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/06 14:51:59 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/09 15:08:17 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/03/30 12:36:49 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define ROTATION 1
 # define SCALE 2
 
-# define VELOCITY 10
+# define VELOCITY 50
 
 # define BUFFER 100000
 

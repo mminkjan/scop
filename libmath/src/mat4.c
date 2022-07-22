@@ -6,7 +6,7 @@
 /*   By: mminkjan <mminkjan@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/02 19:30:38 by mminkjan      #+#    #+#                 */
-/*   Updated: 2022/03/09 16:18:56 by mminkjan      ########   odam.nl         */
+/*   Updated: 2022/07/20 13:22:21 by mminkjan      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_mat4 mat4_rotation(t_vec3 rotation)
 	t_mat4 rot_x;
 	t_mat4 rot_y;
 	t_mat4 rot_z;
-	t_mat4 combined;
+	t_mat4 composition;
 
     rot_x = new_mat4();
 	rot_y = new_mat4();
@@ -102,9 +102,9 @@ t_mat4 mat4_rotation(t_vec3 rotation)
 		rot_y = mat4_rotationY(rot_y, rotation.y);
 	if (rotation.z != 0)
 		rot_z = mat4_rotationZ(rot_z, rotation.z);
-	combined = mat4_mutliplication(rot_x, rot_y);
-	combined = mat4_mutliplication(combined, rot_z);
-	return(combined);
+	composition = mat4_mutliplication(rot_x, rot_y);
+	composition = mat4_mutliplication(composition, rot_z);
+	return(composition);
 }
 
 t_mat4  mat4_scale(t_vec3 scale)
@@ -126,18 +126,22 @@ t_mat4 mat4_mutliplication(t_mat4 a, t_mat4 b)
 	mult.m[1] = a.m[0] * b.m[1] + a.m[1] * b.m[5] + a.m[2] * b.m[9] + a.m[3] * b.m[13];
 	mult.m[2] = a.m[0] * b.m[2] + a.m[1] * b.m[6] + a.m[2] * b.m[10] + a.m[3] * b.m[14];
 	mult.m[3] = a.m[0] * b.m[3] + a.m[1] * b.m[7] + a.m[2] * b.m[11] + a.m[3] * b.m[15];
+
 	mult.m[4] = a.m[4] * b.m[0] + a.m[5] * b.m[4] + a.m[6] * b.m[8] + a.m[7] * b.m[12];
 	mult.m[5] = a.m[4] * b.m[1] + a.m[5] * b.m[5] + a.m[6] * b.m[9] + a.m[7] * b.m[13];
 	mult.m[6] = a.m[4] * b.m[2] + a.m[5] * b.m[6] + a.m[6] * b.m[10] + a.m[7] * b.m[14];
 	mult.m[7] = a.m[4] * b.m[3] + a.m[5] * b.m[7] + a.m[6] * b.m[11] + a.m[7] * b.m[15];
+
 	mult.m[8] = a.m[8] * b.m[0] + a.m[9] * b.m[4] + a.m[10] * b.m[8] + a.m[11] * b.m[12];
 	mult.m[9] = a.m[8] * b.m[1] + a.m[9] * b.m[5] + a.m[10] * b.m[9] + a.m[11] * b.m[13];
 	mult.m[10] = a.m[8] * b.m[2] + a.m[9] * b.m[6] + a.m[10] * b.m[10] + a.m[11] * b.m[14];
 	mult.m[11] = a.m[8] * b.m[3] + a.m[9] * b.m[7] + a.m[10] * b.m[11] + a.m[11] * b.m[15];
+
 	mult.m[12] = a.m[12] * b.m[0] + a.m[13] * b.m[4] + a.m[14] * b.m[8] + a.m[15] * b.m[12];
 	mult.m[13] = a.m[12] * b.m[1]  + a.m[13] * b.m[5] + a.m[14] * b.m[9] + a.m[15] * b.m[13];
 	mult.m[14] = a.m[12] * b.m[2] + a.m[13] * b.m[6] + a.m[14] * b.m[10] + a.m[15] * b.m[14];
-	mult.m[15] = a.m[12] * b.m[3] + a.m[13] * b.m[7] + a.m[14] * b.m[11] + a.m[15] * b.m[15];	
+	mult.m[15] = a.m[12] * b.m[3] + a.m[13] * b.m[7] + a.m[14] * b.m[11] + a.m[15] * b.m[15];
+    
 	return (mult);
 }
 
